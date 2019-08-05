@@ -1,0 +1,542 @@
+/*
+Copyright 2016-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+Licensed under the GNU General Public License as published by the Free Software Foundation,
+Version 2.0 (the "License"). You may not use this file except in compliance with the License.
+A copy of the License is located in the "license" file accompanying this file.
+
+This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+*/
+
+.aalb-admin-inline {
+    display: inline;
+}
+
+input.aalb-admin-input-search {
+    vertical-align: top;
+    margin-left: 3px;
+    margin-right: 3px;
+    height: 28px;
+    border: 1px solid #F0C14B !important;
+    /* Below width is hardcoded so that placeholder string fits input box for different languages. */
+    width: 190px;
+}
+.aalb-admin-input-search:focus {
+    border-color: #5b9dd9 !important;
+    box-shadow: 0 0 2px rgba(30, 140, 190, .8) !important;
+}
+
+.aalb-admin-searchbox a.aalb-admin-button-create-amazon-shortcode {
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.4) inset;
+    background: transparent linear-gradient(to bottom, #F7DFA5, #F0C14B) repeat scroll 0% 0%;
+    background-color: transparent;
+    background-image: linear-gradient(to bottom, #F7DFA5, #F0C14B);
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-position: 0% 0%;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-size: auto auto;
+    border-color: #A88734 #9C7E31 #846A29;
+    border-top-color: #A88734;
+    border-right-color: #9C7E31;
+    border-bottom-color: #846A29;
+    border-left-color: #9C7E31;
+    color: #111;
+}
+
+.aalb-admin-searchbox a.aalb-admin-button-create-amazon-shortcode:hover {
+    background: transparent linear-gradient(to bottom, #F7DFA5, #F0C14B) repeat scroll 0% 0%;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#TB_ajaxContent {
+    height: 90%;
+    width: 95%;
+}
+
+#aalb-admin-popup-container {
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+.aalb-admin-popup-content {
+    padding-top: 5px;
+    height: 50%;
+    width: 100%;
+}
+
+.aalb-modal-box {
+    width: 100%;
+    height: 100%;
+}
+
+.aalb-admin-alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.aalb-admin-alert {
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.25) inset, 0px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.aalb-admin-alert-info {
+    color: #E77600;
+    background-color: #FEF8F2;
+    border-color: #E77600;
+}
+
+.aalb-admin-alert-info {
+    background-image: linear-gradient(to bottom, #FEF8F2 0px, #FFF1E3 100%);
+    background-repeat: repeat-x;
+    border-color: #E77600;
+}
+
+#aalb-add-shortcode-alert {
+    color: #E77600;
+    padding: 2px;
+    display: inline;
+    padding-left: 10px;
+    opacity: 0;
+}
+
+.aalb-admin-icon {
+    padding-right: 5px;
+    height: 20%;
+    display: inline;
+}
+
+.aalb-admin-item-search-loading {
+    margin-top: 20px;
+}
+
+.aalb-admin-item-search {
+    width: 100%;
+    height: 90%;
+    display: none;
+}
+
+.aalb-admin-item-search-items {
+    width: 100%;
+    height: 100%;
+    margin: 2px;
+    padding: 0;
+    -moz-column-gap: 8px;
+    -webkit-column-gap: 8px;
+    column-gap: 8px;
+    -moz-column-count: 3;
+    -webkit-column-count: 3;
+    column-count: 3;
+    overflow: scroll;
+}
+
+.aalb-admin-item-search-items-item {
+    display: inline-block;
+    background: #fff;
+    padding: 5px;
+    margin: 0 0 5px;
+    width: 100%;
+    height: 80px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.aalb-admin-item-search-items-item-img {
+    float: left;
+    padding-right: 5px;
+    width: 25%;
+    height: 100%;
+}
+
+#aalb-admin-item-search-items-item-img {
+    max-width: 100%;
+    height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.aalb-admin-item-search-items-item-title {
+    font-weight: bold;
+    word-break: break-all;
+    font-size: 1em;
+    /* hide text if it more than N lines  */
+    overflow: hidden;
+    /* for set '...' in absolute position */
+    position: relative;
+    /* use this value to count block height */
+    line-height: 1.2em;
+    /* max-height = line-height (1.2) * lines max number (2) */
+    max-height: 2.4em;
+    /* fix problem when last visible word doesn't adjoin right side  */
+    text-align: justify;
+    /* place for '...' */
+    margin-right: -1em;
+    padding-right: 1em;
+}
+
+/* create the ... */
+.aalb-admin-item-search-items-item-title:before {
+    /* points in the end */
+    content: '...';
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of block */
+    right: 0;
+    bottom: 0;
+}
+
+/* hide ... if we have text, which is less than or equal to max lines */
+.aalb-admin-item-search-items-item-title:after {
+    /* points in the end */
+    content: '';
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of text */
+    right: 0;
+    /* set width and height */
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    /* bg color = bg color under block */
+    background: white;
+}
+
+/* CSS Fix for rendering issues with safari */
+@media screen and (min-color-index: 0)
+and(-webkit-min-device-pixel-ratio: 0) {
+    @media {
+        .aalb-admin-item-search-items-item-title {
+            position: initial;
+            margin-left: 2em;
+            margin-right: 0em;
+        }
+    }
+}
+
+/* fix for safari 10.1 */
+@media not all and (min-resolution: .001dpcm) {
+    @media {
+        .aalb-admin-item-search-items-item-title {
+            position: initial;
+            margin-left: 2em;
+            margin-right: 0;
+            font-weight: bold;
+            word-break: break-all;
+            font-size: 1em;
+            overflow: hidden;
+            position: relative;
+            line-height: 1.2em;
+            max-height: 2.4em;
+            text-align: justify;
+        }
+
+    }
+}
+
+.aalb-admin-item-search-items-item-price {
+    font-size: 1em;
+    color: #b12704;
+    font-weight: bold;
+}
+
+.aalb-admin-item-search-items-item:hover {
+    background-image: linear-gradient(to bottom, #FEF8F2 0px, #FFF1E3 100%);
+    background-repeat: repeat-x;
+    border-color: #E77600;
+}
+
+.aalb-admin-popup-shortcode-options {
+    display: inline-block;
+    width: 100%;
+}
+
+.aalb-admin-item-search-templates {
+    display: inline-block;
+}
+
+.aalb-admin-item-search-templates {
+    margin-top: 2px;
+    margin-bottom: 3px;
+}
+
+.aalb-add-shortcode-button {
+    bottom: 2px;
+    position: absolute;
+    width: 97%;
+    margin-left: -1%;
+    background: #ffffff;
+    z-index: 1000;
+}
+
+.aalb-admin-popup-input-search {
+    border: 1px solid #F0C14B;
+    width: 95%;
+    height: 28px;
+}
+
+.aalb-selected {
+    height: auto;
+    width: 100%;
+    margin-top: 20px;
+    padding-bottom: 10px;
+}
+
+.aalb-selected label {
+    display: block;
+    text-align: left;
+    padding: 15px 0px;
+}
+
+.aalb-selected-placeholder {
+    color: #a9a9a9;
+    margin-left: 17px;
+    margin-top: 8px;
+    font-size: 18px;
+}
+
+.aalb-selected-item {
+    border: 1px solid #eee;
+    float: left;
+    margin: 4px 4px 4px 4px;
+    position: relative;
+    width: 10%;
+    padding: 4px;
+    font-family: Helvetica;
+}
+
+.aalb-selected-item:hover {
+    border: 1px solid #900;
+}
+
+.aalb-selected-item-img {
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+
+.aalb-selected-item-img-wrap {
+    position: relative;
+    height: 100%;
+}
+
+.aalb-selected-item-close {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    z-index: 100;
+    color: #FFF;
+    border-radius: 10px;
+    display: block;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 1px 1px 4px #000;
+    background-color: #a50200;
+    background-image: -webkit-linear-gradient(top, #cb0400, #a50200);
+    background-image: linear-gradient(to bottom, #cb0400, #a50200);
+}
+
+.aalb-selected-item-title h3 {
+    margin: 2px 3px 0 2px;
+    font-size: 8px;
+    line-height: 12px;
+    color: #000;
+    position: relative;
+    text-align: center;
+    display: block;
+    overflow: hidden;
+    height: 35px;
+}
+
+.aalb-selected-item-price {
+    text-align: center;
+    color: #900;
+    font-weight: bold;
+    margin: 2px;
+}
+
+.aalb-selected-asin {
+    display: none;
+}
+
+#aalb-add-asin-error {
+    padding: 2px;
+    display: inline;
+    padding-left: 10px;
+    float: right;
+}
+
+#aalb-add-template-asin-error {
+    color: #FF0000;
+    font-size: 12px;
+    display: block;
+}
+
+#aalb_template_names_list {
+    width: 200px;
+}
+
+input.aalb-admin-input-search:focus {
+    box-shadow: #F0C14B;
+}
+
+#aalb-add-shortcode-button:disabled {
+    cursor: not-allowed;
+    background: transparent;
+    opacity: 0.2;
+}
+
+.aalb-admin-inline.aalb-admin-searchbox:hover .aalb-admin-searchbox-tooltip-text {
+    visibility: visible;
+}
+
+input.aalb-admin-input-search:disabled {
+    opacity: 0.8;
+}
+
+.aalb-admin-button-create-amazon-shortcode-disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.4;
+}
+
+.aalb-admin-inline.aalb-admin-searchbox .aalb-admin-searchbox-tooltip-text {
+    visibility: hidden;
+    background-color: #ffffff;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 60%;
+    width: 290px;
+    box-shadow: 3px 3px 10px 0px rgba(44, 50, 50, 0.76);
+    border: 1px #000000;
+    font-size: 12px;
+}
+
+.aalb-admin-hide-display {
+    display: none;
+}
+
+.aalb-admin-searchbox-tooltip-text a {
+    text-decoration: underline !important;
+    color: #0073aa !important;
+    font-weight: bold;
+}
+
+.aalb-info-icon::before {
+    margin-left: 5px;
+}
+
+#aalb-tabs li .ui-icon-close {
+    float: left;
+    margin: 0.4em 0.2em 0 0;
+    cursor: pointer;
+}
+
+.aalb-pop-up-tabs {
+    width: 100%;
+    border: 1px solid #e78f08;
+}
+
+#aalb-tabs {
+    padding: 0;
+}
+
+.aalb-pop-up-tabs ul {
+    background: #ededed;
+    padding: 0;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.aalb-pop-up-tabs ul li {
+    background: #ededed;
+    border: 0.1px solid #ededed;
+}
+
+#aalb-tabs .ui-state-active {
+    background: #ffffff !important;
+    border-bottom: 0;
+}
+
+#aalb-add-marketplace-tab {
+    size: 70px;
+    cursor: pointer;
+}
+
+.aalb-templates-label {
+    vertical-align: middle;
+}
+
+.aalb-admin-popup-fieldset {
+    border: 1px solid #778899;
+    border-radius: 5px;
+    min-height: 150px;
+    padding-right: 4px;
+    padding-left: 4px;
+}
+
+.aalb-admin-popup-legend {
+    margin-left: 5px;
+}
+
+.aalb-admin-popup-placeholder {
+    margin-top: 15px;
+}
+
+.aalb-admin-popup-more-results {
+    margin-bottom: 3px;
+}
+
+.aalb-table-cell {
+    display: table-cell;
+}
+
+.aalb-table {
+    display: table;
+}
+
+.aalb-table-row {
+    display: table-row;
+}
+
+.aalb-width-25 {
+    width: 25%
+}
+
+.aalb-width-40 {
+    width: 40%
+}
+
+.aalb-width-10 {
+    width: 10%
+}

@@ -1,0 +1,961 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2018-02-27 07:06+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Loco https://localise.biz/\n"
+"Language: it_IT\n"
+"Project-Id-Version: Plugins - Amazon Associates Link Builder - Development "
+"(trunk)\n"
+"POT-Creation-Date: 2018-02-27 07:04+0000\n"
+"Last-Translator: root <nishgarg@amazon.com>\n"
+"Language-Team: Italian\n"
+"Report-Msgid-Bugs-To: "
+
+#: amazon-associates-link-builder.php:39 admin/sidebar/aalb_sidebar.php:35
+msgid "About"
+msgstr "Chi siamo"
+
+#: amazon-associates-link-builder.php:40 admin/sidebar/aalb_sidebar.php:37
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: amazon-associates-link-builder.php:41 admin/sidebar/aalb_sidebar.php:39
+msgid "Templates"
+msgstr "Template"
+
+#: admin/aalb_admin.php:129
+msgid "Only one product can be selected for this template"
+msgstr "Per questo template è possibile selezionare solo un prodotto"
+
+#: admin/aalb_admin.php:130
+msgid "Please select at least one product for these marketplaces:"
+msgstr ""
+
+#: admin/aalb_admin.php:131
+msgid "Please Enter a Product Name "
+msgstr "Inserisci un nome di prodotto"
+
+#: admin/aalb_admin.php:132
+msgid ""
+"Failed to create Text Link shortcode. Editor has some text selected. Only "
+"one item can be selected while adding text links"
+msgstr ""
+"Impossibile creare il codice breve del link testuale. L’editor presenta una "
+"parte di testo selezionata. Durante l’aggiunta dei link testuali è possibile "
+"aggiungere solo un articolo"
+
+#. translators: %s: Email-id of the support
+#: admin/aalb_admin.php:134
+#, php-format
+msgid ""
+"Request timed out. Try again after some time. Please check your network and "
+"firewall settings. If the error still persists, write to us at %s."
+msgstr ""
+"Richiesta scaduta. Riprova più tardi. Controlla le impostazioni di rete e "
+"del firewall. Se l’errore persiste, scrivi a %s."
+
+#: admin/aalb_admin.php:135 admin/partials/aalb_editor_search_box.php:32
+msgid "Add Amazon Associates Link Builder Shortcode"
+msgstr "Aggiungi codice breve Amazon Associates Link Builder"
+
+#. translators: %s: URL of settings page
+#: admin/aalb_admin.php:137
+#, php-format
+msgid ""
+"Please configure your PA-API credentials in the  <a href=%s>Settings Page</a>"
+" to use the Link Builder features."
+msgstr ""
+"Configura le tue credenziali PA-API nella pagina <a href=%s>Impostazioni</a> "
+"per utilizzare le funzionalità Link Builder."
+
+#. %s: URL of settings page
+#: admin/aalb_admin.php:139
+#, php-format
+msgid ""
+"Please configure your Store-Id credentials in the  <a href=%s>Settings "
+"Page</a> to use the Link Builder features."
+msgstr ""
+
+#: admin/aalb_admin.php:140
+msgid "Ad Template"
+msgstr "Template annuncio"
+
+#: admin/aalb_admin.php:141 admin/partials/aalb_editor_search_box.php:30
+msgid "Enter keyword(s)"
+msgstr "Inserisci parole chiave"
+
+#: admin/aalb_admin.php:142 admin/partials/aalb_editor_search_box.php:33
+msgid "Search"
+msgstr "Cerca"
+
+#: admin/aalb_admin.php:143
+msgid "Tracking IDs"
+msgstr ""
+
+#: admin/aalb_admin.php:144
+msgid "Search Phrase"
+msgstr ""
+
+#: admin/aalb_admin.php:145
+msgid "Select Tracking Id"
+msgstr ""
+
+#: admin/aalb_admin.php:146
+msgid "Marketplace"
+msgstr "Marketplace"
+
+#: admin/aalb_admin.php:147
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:56
+msgid "Select Marketplace"
+msgstr ""
+
+#: admin/aalb_admin.php:148
+msgid "Searching relevant products from Amazon"
+msgstr "Ricerca prodotti rilevanti su Amazon"
+
+#: admin/aalb_admin.php:149
+msgid "Click to select product(s) to advertise"
+msgstr "Clicca per selezionare i prodotti da pubblicizzare"
+
+#: admin/aalb_admin.php:150
+msgid "Check more search results on Amazon"
+msgstr "Controlla gli altri risultati di ricerca su Amazon"
+
+#: admin/aalb_admin.php:151
+msgid "List of Selected Products(Maximum: 10)"
+msgstr ""
+
+#: admin/aalb_admin.php:152
+msgid "Creating shortcode. Please wait...."
+msgstr "Creazione codice breve. Attendi..."
+
+#: admin/aalb_admin.php:153
+msgid "Add Shortcode"
+msgstr "Aggiungi codice breve"
+
+#: admin/aalb_admin.php:154
+msgid ""
+"To configure templates, go to Associates Link Builder plugin's Templates page"
+msgstr ""
+
+#: admin/aalb_admin.php:155
+msgid ""
+"To configure marketplaces, go to Associates Link Builder plugin's Settings "
+"page"
+msgstr ""
+
+#: admin/aalb_admin.php:156
+msgid ""
+"To configure tracking ids, go to Associates Link Builder plugin's Settings "
+"page"
+msgstr ""
+
+#: admin/aalb_admin.php:157
+msgid "Please select marketplace from above to show products."
+msgstr ""
+
+#: admin/aalb_admin.php:158
+msgid "Please select some products from above."
+msgstr ""
+
+#: admin/aalb_admin.php:159
+msgid "Add ProductSet for Country"
+msgstr ""
+
+#: admin/aalb_admin.php:286
+msgid ""
+"Not authorised to make request template content or Directory Traversal "
+"Attempted."
+msgstr ""
+"Non autorizzato a effettuare la richiesta del contenuto del template o "
+"Directory Traversal Attempted."
+
+#: admin/aalb_admin.php:296
+msgid "Not authorised to make request"
+msgstr "Non autorizzato a effettuare la richiesta"
+
+#: ip2country/aalb_maxmind_db_manager.php:48
+#, php-format
+msgid ""
+"WordPress does not have permissions to write to the \"Downloads Folder\" (%s)"
+". Please grant permissions or pick a different folder from the Amazon "
+"Associates Link Builder plugin's settings page, otherwise your links to "
+"Amazon might not display correctly."
+msgstr ""
+
+#: ip2country/aalb_maxmind_db_manager.php:50
+#, php-format
+msgid ""
+"WordPress could not find file %1s at \"DownloadsFolder\"(%2s), so geo-"
+"targeted links will not work correctly. This file can be downloaded from <a "
+"href=%2s>here</a>"
+msgstr ""
+
+#: ip2country/aalb_maxmind_db_manager.php:54
+#, php-format
+msgid ""
+"WordPress could not read %s. Please grant read permissions, otherwise your "
+"links to Amazon might not display correctly."
+msgstr ""
+
+#: ip2country/aalb_maxmind_db_manager.php:57
+#, php-format
+msgid ""
+"WordPress does not have write permissions to update the file(%s). Please "
+"grant write permissions, otherwise geo-targeted links may not work correctly."
+msgstr ""
+
+#: ip2country/aalb_maxmind_db_manager.php:59
+#, php-format
+msgid ""
+"WordPress could not update file(%1s) for geo-targeted links feature, so "
+"these links may not work correctly. This file can be downloaded from <a "
+"href=%2s>here</a>"
+msgstr ""
+
+#. translators: %s: Invalid ASIN name
+#: shortcode/aalb_shortcode_helper.php:144
+#, php-format
+msgid "The ASIN: %s is invalid."
+msgstr "l’ASIN: %s non è valido."
+
+#. translators: 1: Invalid template name 2: Valid template name
+#: shortcode/aalb_shortcode_helper.php:168
+#, php-format
+msgid "The template: %1s is invalid. Using default template %2s."
+msgstr ""
+"Il template: %1s non valido. Viene utilizzato il template %2s predefinito."
+
+#. translators: 1: Invalid associate id 2: Valid associate id
+#: shortcode/aalb_shortcode_helper.php:191
+#, php-format
+msgid ""
+"The Associate tag %1s is not present in the list of valid tags. Associate "
+"tag has been updated to %2s. Please check your Associate tag selection or "
+"contact the administrator to add a new tag."
+msgstr ""
+"Il tag affiliato %1s non è presente nell’elenco dei tag validi. Il tag "
+"affiliato è stato aggiornato a %2s. Controlla la tua selezione di tag "
+"affiliato o contatta l’amministratore per aggiungere un nuovo tag."
+
+#: shortcode/aalb_shortcode_manager.php:85
+msgid ""
+"There is an error in the count of configured marketplaces, asins and stores "
+"in this shortcode. Please fix the parameters for marketplace, asin and store-"
+"id."
+msgstr ""
+
+#: admin/sidebar/aalb_sidebar.php:31 admin/sidebar/partials/aalb_about.php:17
+msgid "Associates Link Builder"
+msgstr "Associates Link Builder"
+
+#. translators: %s: Name of plugin
+#: admin/sidebar/aalb_sidebar.php:35
+#, php-format
+msgid "Configure %s About"
+msgstr "Configura %s Chi siamo"
+
+#. translators: %s: Name of plugin
+#: admin/sidebar/aalb_sidebar.php:37
+#, php-format
+msgid "Configure %s Settings"
+msgstr "Configura %s Impostazioni"
+
+#. translators: %s: Name of plugin
+#: admin/sidebar/aalb_sidebar.php:39
+#, php-format
+msgid "Configure %s Templates"
+msgstr "Configura %s Template"
+
+#: lib/php/aalb_validation_helper.php:102
+msgid ""
+"Associate Tag was not found. The sales will not be attributed to any store "
+"and you will not earn the associate fees for it. Please provide a valid "
+"Associate Tag if you wish to earn the referral fees. Assocaite Tags can be "
+"configured from the 'Settings' tab in the WordPress administration panel"
+msgstr ""
+"Il tag affiliato non è stato trovato. Le vendite non saranno attribuite ad "
+"alcun negozio e non otterrai le tue commissioni pubblicitarie per tali "
+"vendite. Ti invitiamo a fornire un tag affiliato valido se desideri ottenere "
+"le commissioni di rinvio. I tag affiliato possono essere configurati dalla "
+"scheda “Impostazioni” nel pannello di controllo WordPress."
+
+#: admin/sidebar/partials/aalb_about.php:19
+msgid "About Amazon Associates Program"
+msgstr "Cos’è il Programma di affiliazione Amazon"
+
+#. translators: 1: URL of affiliate website 2: _blank
+#: admin/sidebar/partials/aalb_about.php:22
+#, php-format
+msgid ""
+"The Amazon Associates Program is one of the original affiliate marketing "
+"programs. Available in geographies across the globe, the Amazon Associates "
+"Program has been partnering with content creators to help them monetize "
+"their passions since 1996. To learn more about the Amazon Associates Program,"
+" please click <a href=%1s target=%2s >here</a>."
+msgstr ""
+"Il Programma di affiliazione Amazon è un esclusivo programma di affiliate "
+"marketing. Disponibile in molti Paesi del mondo, sin dal 1996 il Programma "
+"di affiliazione Amazon collabora con i creatori di contenuti per aiutarli a "
+"monetizzare le loro passioni. Per saperne di più sul Programma di "
+"affiliazione Amazon, clicca <a href=%1s target=%2s >qui</a>."
+
+#: admin/sidebar/partials/aalb_about.php:24
+msgid "About Amazon Associates Link Builder"
+msgstr "L’Amazon Associates Link Builder"
+
+#: admin/sidebar/partials/aalb_about.php:26
+msgid ""
+"Link Builder is the official free Amazon Associates Program plugin for "
+"WordPress. The plugin enables you to search for products in the Amazon "
+"catalog, access real-time price and availability information, and easily "
+"create links in your posts to products on Amazon.com. You will be able to "
+"generate text links, create custom ad units, or take advantage of out-of-the-"
+"box widgets that we’ve designed and included with the plugin."
+msgstr ""
+"Il Link Builder è il plugin ufficiale gratuito per WordPress del Programma "
+"di affiliazione Amazon. Il plugin consente di cercare i prodotti nel "
+"catalogo Amazon, accedere alle informazioni su prezzi e disponibilità in "
+"tempo reale e creare facilmente i link nei tuoi post ai prodotti su Amazon. "
+"Potrai così creare link testuali, unità di annunci personalizzati o trarre "
+"vantaggio dai widget pronti all’uso che abbiamo disegnato e incluso nel "
+"plugin."
+
+#: admin/sidebar/partials/aalb_about.php:28
+msgid "Note"
+msgstr "Nota"
+
+#. translators: 1: URL of Condition of Use page 2: _blank
+#: admin/sidebar/partials/aalb_about.php:32
+#, php-format
+msgid ""
+"You must review and accept the Amazon Associates Link Builder <a href=%1s "
+"target=%2s>Conditions of Use.</a>"
+msgstr ""
+"Devi leggere e accettare le <a href=%1s target=%2s>Condizioni d’uso</a> "
+"dell’Amazon Associates Link Builder."
+
+#: admin/sidebar/partials/aalb_about.php:35
+msgid ""
+"The plugin is currently in beta form. We intend to regularly add new "
+"features and enhancements throughout the beta period and beyond, and welcome "
+"your feedback and input."
+msgstr ""
+"Al momento il plugin è in versione beta. Pensiamo di aggiungere regolarmente "
+"nuove funzionalità e miglioramenti nel corso del periodo beta e oltre. Siamo "
+"inoltre lieti di ricevere il tuo feedback e i tuoi suggerimenti."
+
+#: admin/sidebar/partials/aalb_about.php:38
+msgid "Getting Started"
+msgstr "Come iniziare"
+
+#: admin/sidebar/partials/aalb_about.php:39
+msgid "Step 1 - Become an Associate"
+msgstr "Fase 1 - Diventa un affiliato"
+
+#: admin/sidebar/partials/aalb_about.php:41
+msgid ""
+"To become an Associate, create an Amazon Associates account using URL for "
+"your country:"
+msgstr ""
+"Per diventare un affiliato, crea un account di affiliazione Amazon "
+"utilizzando l’URL del tuo Paese:"
+
+#: admin/sidebar/partials/aalb_about.php:45
+msgid "Brazil"
+msgstr "Brasile"
+
+#: admin/sidebar/partials/aalb_about.php:51
+msgid "Canada"
+msgstr "Canada"
+
+#: admin/sidebar/partials/aalb_about.php:57
+msgid "China"
+msgstr "Cina"
+
+#: admin/sidebar/partials/aalb_about.php:63
+msgid "France"
+msgstr "Francia"
+
+#: admin/sidebar/partials/aalb_about.php:69
+msgid "Germany"
+msgstr "Germania"
+
+#: admin/sidebar/partials/aalb_about.php:75
+msgid "India"
+msgstr "India"
+
+#: admin/sidebar/partials/aalb_about.php:81
+msgid "Italy"
+msgstr "Italia"
+
+#: admin/sidebar/partials/aalb_about.php:87
+msgid "Japan"
+msgstr "Giappone"
+
+#: admin/sidebar/partials/aalb_about.php:93
+msgid "Mexico"
+msgstr "Messico"
+
+#: admin/sidebar/partials/aalb_about.php:99
+msgid "Spain"
+msgstr "Spagna"
+
+#: admin/sidebar/partials/aalb_about.php:105
+msgid "United Kingdom"
+msgstr "Regno Unito"
+
+#: admin/sidebar/partials/aalb_about.php:111
+msgid "United States"
+msgstr "Stati Uniti"
+
+#: admin/sidebar/partials/aalb_about.php:118
+msgid ""
+"Your Associate ID works only in the country in which you register. If you’d "
+"like to be an Associate in more than one country, please register separately "
+"for each country."
+msgstr ""
+"Il tuo ID affiliato funziona solo nel Paese in cui effettui la registrazione."
+" Se desideri essere un affiliato in più di un Paese, registrati "
+"separatamente per ogni Paese."
+
+#: admin/sidebar/partials/aalb_about.php:120
+msgid "Step 2 - Sign up for the Amazon Product Advertising API"
+msgstr "Fase 2 - Registrazione per la Amazon Product Advertising API"
+
+#. translators: 1: URL of Getting Started page 2: _blank
+#: admin/sidebar/partials/aalb_about.php:123
+#, php-format
+msgid ""
+"Sign up for the Amazon Product Advertising API by following the instructions "
+"listed <a href=%1s target=%2s>here</a>. The Amazon Product Advertising API "
+"is a popular e-commerce service, powering Amazon-integrated experiences "
+"around the world, serving tens of thousands of applications and more than 1 "
+"billion API requests every day. It exposes a web-service, which allows "
+"Associates to programmatically search and look up items in the Amazon "
+"product catalog. The Link Builder plugin integrates the Product Advertising "
+"API, allowing you to access Amazon.com product catalog data without "
+"requiring additional software development."
+msgstr ""
+"Registrati alla Amazon Product Advertising API seguendo le istruzioni "
+"elencate <a href=%1s target=%2s>qui</a>. La Amazon Product Advertising API è "
+"un diffuso servizio di e-commerce, realizzato dall’esperienza di Amazon in "
+"tutto il mondo, il quale rende disponibile decine di migliaia di "
+"applicazioni e più di 1 miliardo di richieste API ogni giorno. Il programma "
+"offre un servizio web che consente agli affiliati di effettuare ricerche con "
+"determinati criteri e di cercare gli articoli nel catalogo prodotti Amazon. "
+"Il plugin Link Builder integra la Product Advertising API, permettendoti di "
+"accedere ai dati del catalogo prodotti Amazon.com senza richiedere lo "
+"sviluppo di software aggiuntivo."
+
+#: admin/sidebar/partials/aalb_about.php:125
+msgid "Step 3 - Configure plugin for first use"
+msgstr "Fase 3 - Configura il plugin al primo uso"
+
+#: admin/sidebar/partials/aalb_about.php:127
+msgid ""
+"Use the Associates Link Builder->Settings screen to configure the plugin."
+msgstr ""
+"Utilizzare la schermata Associates Link Builder -> Settings per configurare "
+"il plugin."
+
+#: admin/sidebar/partials/aalb_about.php:130
+msgid ""
+"Set Access Key ID and Secret Access Key in the Settings section. These "
+"credentials are used to invoke requests to the Amazon Product Advertising "
+"API for fetching information on an item."
+msgstr ""
+"Imposta l’Access Key ID e la Secret Access Key nella sezione Impostazioni. "
+"Queste credenziali sono utilizzate per avviare richieste alla Amazon Product "
+"Advertising API per il recupero di informazioni su un articolo."
+
+#: admin/sidebar/partials/aalb_about.php:132
+msgid ""
+"Set default Associate ID. Associate ID is used to monitor traffic and sales "
+"from your links to Amazon. You can also define a list of valid Associate IDs "
+"(store ids or tracking ids). You should create a new tracking ID in your "
+"Amazon Associates account for using it as Associate ID in the plugin."
+msgstr ""
+"Imposta l’ID affiliato predefinito. L’ID affiliato è utilizzato per "
+"monitorare il traffico e le vendite dai tuoi link verso Amazon. Puoi anche "
+"definire un elenco di ID affiliato validi (store id o tracking id). Ti "
+"consigliamo di creare un nuovo tracking ID nel tuo account di affiliazione "
+"Amazon al fine di utilizzarlo come ID affiliato nel plugin."
+
+#: admin/sidebar/partials/aalb_about.php:134
+msgid ""
+"Set the default Amazon marketplace based on the Amazon Associates Program "
+"for which you are registered (for example, if you’ve signed up for the "
+"Amazon Associates Program in UK, then your default marketplace selection "
+"should be UK) and select an appropriate template for rendering your ads."
+msgstr ""
+"Imposta il marketplace Amazon predefinito in base al Programma di "
+"affiliazione Amazon in cui ti sei registrato (ad esempio, se ti sei "
+"registrato al programma del Regno Unito, il tuo marketplace predefinito "
+"dovrebbe essere il Regno Unito) e seleziona un modello adeguato per il "
+"rendering degli annunci."
+
+#: admin/sidebar/partials/aalb_about.php:138
+msgid ""
+"That's it! You’re all set to start adding Amazon affiliate links to your "
+"posts using the Amazon Associates Link Builder plugin!"
+msgstr ""
+"È tutto! Ora sei pronto ad aggiungere i link di affiliazione Amazon ai tuoi "
+"post utilizzando il plugin Amazon Associates Link Builder!"
+
+#: admin/sidebar/partials/aalb_about.php:140
+msgid "User Guide"
+msgstr "Guida utente"
+
+#. translators: 1: URL of Link Builder User Guide 2: _blank
+#: admin/sidebar/partials/aalb_about.php:143
+#, php-format
+msgid ""
+"Review <a href=%1s target=%2s >Link Builder User Guide</a> for more "
+"information on getting started and key features of the plugin."
+msgstr ""
+"Consulta la <a href=%1s target=%2s >Guida utente al Link Builder</a> per "
+"maggiori informazioni su come iniziare e le funzioni chiave del plugin."
+
+#: admin/sidebar/partials/aalb_about.php:145
+msgid "Support"
+msgstr "Supporto"
+
+#. translators: 1: URL of Plugin's Support Forum 2: _blank
+#: admin/sidebar/partials/aalb_about.php:148
+#, php-format
+msgid ""
+"If you get stuck, or have any questions, you can ask for help in the <a "
+"href=%1s target=%2s>Amazon Associates Link Builder plugin forum</a>."
+msgstr ""
+"In caso di problemi o domande, puoi chiedere aiuto nel <a href=%1s "
+"target=%2s>forum del plugin Amazon Associates Link Builder</a>."
+
+#: admin/sidebar/partials/aalb_admin_ui_common.php:27
+msgid "We <b>recommend</b> using HTTPs connection for improved security."
+msgstr ""
+"<b>Consigliamo</b> di utilizzare il collegamento HTTPs per una maggiore "
+"sicurezza."
+
+#: admin/sidebar/partials/aalb_credentials.php:26
+msgid "Are you sure you want to remove this marketplace?"
+msgstr ""
+
+#: admin/sidebar/partials/aalb_credentials.php:29
+msgid "YES"
+msgstr ""
+
+#: admin/sidebar/partials/aalb_credentials.php:30
+msgid "NO"
+msgstr ""
+
+#: admin/sidebar/partials/aalb_credentials.php:36
+msgid "Settings for Associates Link Builder"
+msgstr "Impostazioni per l’Associates Link Builder"
+
+#: admin/sidebar/partials/aalb_credentials.php:70
+msgid "Site Wide Settings"
+msgstr "Impostazioni per il sito"
+
+#: admin/sidebar/partials/aalb_credentials.php:73
+msgid "Default Template"
+msgstr "Template predefinito"
+
+#: admin/sidebar/partials/aalb_credentials.php:87
+msgid ""
+"The ad template that will be used for rendering the ad if no template is "
+"specified in the short code."
+msgstr ""
+"Il template dell’annuncio utilizzato per il rendering dell’annuncio, se nel "
+"codice breve non è specificato alcun template."
+
+#: admin/sidebar/partials/aalb_credentials.php:91
+msgid "Downloads Folder"
+msgstr ""
+
+#: admin/sidebar/partials/aalb_credentials.php:97
+#, php-format
+msgid ""
+"This folder will be used to save files downloaded by the plugin (e.g. <a "
+"href=%1s target=%2s>The MaxMind IP2Country Database</a>) for local use. "
+"Absolute path required. <br><span class=\"aalb-bold\"> Default value:</span> "
+"<code>wp_upload_dir()['basedir'] + '%3s'</code>"
+msgstr ""
+
+#. translators: %s: rel="noreferrer" attribute
+#: admin/sidebar/partials/aalb_credentials.php:106
+#, php-format
+msgid "Remove %s for Amazon Affiliate Links from all posts"
+msgstr "Rimuovi %s dai link di affiliazione Amazon di tutti i post"
+
+#. translators: %s: rel="noreferrer" attribute
+#: admin/sidebar/partials/aalb_credentials.php:110
+#, php-format
+msgid ""
+"Selecting the checkbox will remove %s from Amazon links on all posts till "
+"date. The action is reversible and you can revert by deselecting the checkbox"
+msgstr ""
+"Selezionando la casella di controllo %s viene rimosso dai link Amazon di "
+"tutti i post fino a quella data. L’azione è reversibile, puoi infatti "
+"ripristinarli deselezionando la casella di controllo"
+
+#: admin/sidebar/partials/aalb_credentials.php:118
+msgid "PA-API Credentials"
+msgstr "Credenziali PA-API"
+
+#: admin/sidebar/partials/aalb_credentials.php:121
+msgid "Access Key ID"
+msgstr "Access Key ID"
+
+#. translators: 1: URL of Getting Started page 2: _blank
+#: admin/sidebar/partials/aalb_credentials.php:128
+#, php-format
+msgid ""
+"Your Access Key ID that you generated after signing up for the Amazon "
+"Product Advertising API. If you have not already signed up for the Amazon "
+"Product Advertising API, you can do so by following instructions listed <a "
+"href=%1s target=%2s>here</a>."
+msgstr ""
+"Il tuo Access Key ID generato dopo la registrazione alla Amazon Product "
+"Advertising API: Se non hai ancora effettuato la registrazione per la Amazon "
+"Product Advertising API, puoi farlo seguendo le istruzioni elencate <a "
+"href=%1s target=%2s>qui</a>."
+
+#: admin/sidebar/partials/aalb_credentials.php:132
+msgid "Secret Access Key"
+msgstr "Secret Access Key"
+
+#. translators: 1: URL of managing PA-API acccount page  2: _blank
+#: admin/sidebar/partials/aalb_credentials.php:143
+#, php-format
+msgid ""
+"A key that is used in conjunction with the Access Key ID to "
+"cryptographically sign an API request. To retrieve your Access Key ID or "
+"Secret Access Key, go to <a href=%1s target=%2s>Manage Your Account</a>. The "
+"plugin uses a default encryption key for encrypting the Secret Key. You can "
+"change the key using AALB_ENCRYPTION_KEY parameter defined in /aalb_config."
+"php."
+msgstr ""
+"Una chiave utilizzata in combinazione con l’Access Key ID per firmare "
+"crittograficamente una richiesta API. Per ritrovare la tua Access Key ID o "
+"Secret Access Key, vai a <a href=%1s target=%2s>Il mio account</a>. Il "
+"plugin utilizza una chiave di codifica predefinita per la codifica della "
+"Secret Key. Puoi modificare la chiave utilizzando il parametro "
+"AALB_ENCRYPTION_KEY definito in /aalb_config.php."
+
+#. translators: 1: URL of Condition of Use page 2: _blank
+#: admin/sidebar/partials/aalb_credentials.php:153
+#, php-format
+msgid ""
+"Check here to indicate that you have read and agree to the Amazon Associates "
+"Link Builder <a href=%1s target=%2s>Conditions of Use</a>."
+msgstr ""
+"Clicca qui per confermare che hai letto e che acconsenti alle <a href=%1s "
+"target=%2s>Condizioni d’uso</a> dell’Associates Link Builder di Amazon."
+
+#: admin/sidebar/partials/aalb_credentials.php:155
+msgid "Save Changes"
+msgstr "Salva modifiche"
+
+#. translators: %s for fileName
+#: admin/sidebar/partials/aalb_templates.php:31
+#, php-format
+msgid "Save Failed. The existing file %s is not writable."
+msgstr "Salvataggio non riuscito. Il file esistente %s non è scrivibile."
+
+#. translators: %s for fileName
+#: admin/sidebar/partials/aalb_templates.php:51
+#, php-format
+msgid "Save Failed. Error writing contents to file: %s"
+msgstr "Salvataggio non riuscito. Errore di scrittura contenuti nel file: %s"
+
+#: admin/sidebar/partials/aalb_templates.php:77
+msgid "Template Saved Successfully"
+msgstr "Template salvato correttamente"
+
+#. translators: 1: Number of templates 2: Name of added templates
+#: admin/sidebar/partials/aalb_templates.php:99
+#, php-format
+msgid "%1s template(s) added: %2s"
+msgstr "%1s template aggiunti: %2s"
+
+#. translators: 1: Number of templates 2: Name of deleted templates
+#: admin/sidebar/partials/aalb_templates.php:103
+#, php-format
+msgid "%1s template(s) deleted: %2s"
+msgstr "%1s template cancellati: %2s"
+
+#: admin/sidebar/partials/aalb_templates.php:129
+msgid "Please define the template name for the new template"
+msgstr "Definisci il nome del template per il nuovo template"
+
+#: admin/sidebar/partials/aalb_templates.php:132
+msgid "Save Failed. Only alphanumeric characters allowed for template name."
+msgstr ""
+"Salvataggio non riuscito. Per il nome del template sono permessi caratteri "
+"alfanumerici."
+
+#. translators: %s: Path of upload directory
+#: admin/sidebar/partials/aalb_templates.php:136
+#, php-format
+msgid ""
+"Failed to create custom template. Please set up recursive Read-Write "
+"permissions for %s"
+msgstr ""
+"Impossibile creare un template personalizzato. Configura i permessi "
+"lettura/scrittura ricorrenti per %s"
+
+#. translators: %s: Name of the template
+#: admin/sidebar/partials/aalb_templates.php:141
+#, php-format
+msgid ""
+"Save Failed. A template with the name %s already exists. Please specify some "
+"other name for the template"
+msgstr ""
+"Salvataggio non riuscito. Un template denominato %s esiste già. Specifica un "
+"altro nome per il template"
+
+#: admin/sidebar/partials/aalb_templates.php:176
+msgid "Successfully removed Template HTML"
+msgstr "Template HTML rimosso correttamente"
+
+#. translators: %s: Name of the template along with absolute file path
+#: admin/sidebar/partials/aalb_templates.php:179
+#, php-format
+msgid "Couldn't remove Template HTML. Please manually remove %s"
+msgstr "Impossibile rimuovere il template HTML. Rimuovi manualmente %s"
+
+#: admin/sidebar/partials/aalb_templates.php:182
+msgid "Successfully removed Template CSS"
+msgstr "Template CSS rimosso correttamente"
+
+#. translators: %s: Name of the template along with complete path
+#: admin/sidebar/partials/aalb_templates.php:185
+#, php-format
+msgid "Couldn't remove Template CSS. Please manually remove %s"
+msgstr "Impossibile rimuovere il template CSS. Rimuovi manualmente %s"
+
+#: admin/sidebar/partials/aalb_templates.php:191
+msgid "Couldn't remove Default Template"
+msgstr "Impossibile rimuovere il template predefinito"
+
+#: admin/sidebar/partials/aalb_templates.php:194
+msgid "Cannot remove new template. Please select a valid template to remove."
+msgstr ""
+"Impossibile rimuovere il nuovo template. Seleziona un template valido per "
+"rimuovere."
+
+#: admin/sidebar/partials/aalb_templates.php:212
+msgid "Templates for Associates Link Builder"
+msgstr "Template per l’Associates Link Builder"
+
+#: admin/sidebar/partials/aalb_templates.php:217
+msgid "Select Template"
+msgstr "Seleziona template"
+
+#: admin/sidebar/partials/aalb_templates.php:221
+msgid "Create new template"
+msgstr "Crea nuovo template"
+
+#: admin/sidebar/partials/aalb_templates.php:230
+msgid "Clone"
+msgstr "Clona"
+
+#: admin/sidebar/partials/aalb_templates.php:235
+msgid "Set a name for your template"
+msgstr "Imposta un nome per il tuo template"
+
+#: admin/sidebar/partials/aalb_templates.php:241
+msgid "Guide for creating custom templates"
+msgstr "Guida alla creazione di template personalizzati"
+
+#: admin/sidebar/partials/aalb_templates.php:245
+msgid "Add HTML for your template"
+msgstr "Aggiungi HTML al tuo template"
+
+#: admin/sidebar/partials/aalb_templates.php:251
+msgid "Add CSS for your template"
+msgstr "Aggiungi CSS al tuo template"
+
+#: admin/sidebar/partials/aalb_templates.php:258
+msgid "Save"
+msgstr "Salva"
+
+#: admin/sidebar/partials/aalb_templates.php:259
+msgid "Remove"
+msgstr "Rimuovi"
+
+#. translators: %s: Information message
+#: admin/sidebar/partials/aalb_ui_common.php:19
+#, php-format
+msgid "INFO - %s"
+msgstr "INFO - %s"
+
+#. translators: %s: Warning message
+#: admin/sidebar/partials/aalb_ui_common.php:24
+#, php-format
+msgid "WARNING - %s"
+msgstr "AVVERTENZA - %s"
+
+#. translators: %s: Error message
+#: admin/sidebar/partials/aalb_ui_common.php:29
+#, php-format
+msgid "ERROR - %s"
+msgstr "ERRORE - %s"
+
+#. translators: %s: Success message
+#: admin/sidebar/partials/aalb_ui_common.php:34
+#, php-format
+msgid "SUCCESS - %s"
+msgstr "RIUSCITA - %s"
+
+#. translators: 1: URL of Associate sign-up page  2: _blank  3:URL of adding
+#. secondary user page  4: _blank
+#: lib/php/Paapi/aalb_paapi_helper.php:114
+#, php-format
+msgid ""
+"Your AWS Access Key Id is not registered as an Amazon Associate. Please "
+"verify that you are <a href=%1s target=%2s>registered as an Amazon "
+"Associate</a> in respective locale and you added the email address "
+"registered for the Product Advertising API as a <a href=%3s target=%4s>"
+"secondary email address in your Amazon Associates account</a>."
+msgstr ""
+"Il tuo AWS Access Key ID non è registrato come affiliato Amazon. Verifica di "
+"essere <a href=%1s target=%2s>registrato come affiliato Amazon</a> nel "
+"rispettivo sito locale e di aver aggiunto l’indirizzo email registrato per "
+"la Product Advertising API come <a href=%3s target=%4s>indirizzo email "
+"secondario nel tuo account di affiliazione Amazon</a>."
+
+#. translators: 1: URL of PA-API sign-up page  2: _blank
+#: lib/php/Paapi/aalb_paapi_helper.php:117
+#: lib/php/Paapi/aalb_paapi_helper.php:119
+#, php-format
+msgid ""
+"Your AccessKey Id is not registered for Product Advertising API. Please sign "
+"up for Product Advertising API by <a href=%1s target=%2s>following these "
+"guidelines</a>."
+msgstr ""
+"Il tuo AccessKey ID non è registrato per la Product Advertising API. "
+"Registrati per la Product Advertising API seguendo <a href=%1s target=%2s>"
+"queste linee guida</a>."
+
+#: lib/php/Paapi/aalb_paapi_helper.php:121
+msgid "Internal server error"
+msgstr "Errore interno del server"
+
+#. translators: 1: URL of PA-API efficiency guidelines page  2: _blank
+#: lib/php/Paapi/aalb_paapi_helper.php:124
+#, php-format
+msgid ""
+"You are submitting requests too quickly. Please retry your requests at a "
+"slower rate. For more information, see <a href=%1s target=%2s>Efficiency "
+"Guidelines</a>."
+msgstr ""
+"Stai inviando richieste troppo rapidamente. Prova a inviare richieste con "
+"meno frequenza. Per maggiori informazioni, vedi le <a href=%1s target=%2s>"
+"Linee guida sull’efficienza</a>."
+
+#. translators: %s: Email-id of the support
+#: lib/php/Paapi/aalb_paapi_helper.php:127
+#, php-format
+msgid ""
+"Request timed out. Try again after some time. Please check you network and "
+"firewall settings. If the error still persists, write to us at %s."
+msgstr ""
+"Richiesta scaduta. Prova ancora più tardi. Controlla le impostazioni di rete "
+"e del firewall. Se l’errore persiste, scrivi a %s."
+
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:54
+msgid "Enter Tracking Id(s)"
+msgstr ""
+
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:55
+msgid "Remove Marketplace"
+msgstr ""
+
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:57
+msgid "Default Marketplace"
+msgstr "Marketplace predefinito"
+
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:58
+msgid "Set As Default Marketplace"
+msgstr ""
+
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:59
+msgid "Tracking Id(s)"
+msgstr "Tracking Id(s)"
+
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:60
+msgid "Add a Marketplace"
+msgstr ""
+
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:61
+msgid "Remove Marketplace Confirmation"
+msgstr ""
+
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:62
+msgid "ERROR: No store id has been entered for one or more marketplaces."
+msgstr ""
+
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:63
+msgid ""
+"ERROR: A marketplace already exists with this value. Please set a new "
+"marketplace."
+msgstr ""
+
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:64
+msgid ""
+"ERROR: A marketplace is present that has not been set. Please set that first."
+msgstr ""
+
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:65
+msgid ""
+"ERROR: You need to maintain at least one marketplace entry for tracking ids "
+msgstr ""
+
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:66
+msgid "ERROR: You need to add at least one marketplace entry for tracking ids "
+msgstr ""
+
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:67
+msgid "Add a Marketplace that you want to create Amazon links to."
+msgstr ""
+
+#: admin/sidebar/partials/helper/aalb_credentials_helper.php:68
+msgid ""
+"For each marketplace you can add multiple tracking ids, separated by commas. "
+"The first tracking id will be considered as default tracking id for that "
+"marketplace."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Amazon Associates Link Builder"
+msgstr "Amazon Associates Link Builder"
+
+#. Description of the plugin/theme
+msgid ""
+"Amazon Associates Link Builder is the official free Amazon Associates "
+"Program plugin for WordPress. The plugin enables you to search for products "
+"in the Amazon catalog, access real-time price and availability information, "
+"and easily create links in your posts to products on Amazon.com. You will be "
+"able to generate text links, create custom ad units, or take advantage of "
+"out-of-the-box widgets that we’ve designed and included with the plugin."
+msgstr ""
+"L’Amazon Associates Link Builder è il plugin ufficiale gratuito per "
+"WordPress del Programma di affiliazione Amazon. Il plugin consente di "
+"cercare i prodotti nel catalogo Amazon, accedere alle informazioni su prezzi "
+"e disponibilità in tempo reale e creare facilmente i link nei tuoi post ai "
+"prodotti su Amazon. Potrai così creare link testuali, unità di annunci "
+"personalizzati o trarre vantaggio dai widget pronti all’uso che abbiamo "
+"disegnato e incluso nel plugin."
+
+#. Author of the plugin/theme
+msgid "Amazon Associates Program"
+msgstr "Programma di affiliazione Amazon"
+
+#. Author URI of the plugin/theme
+msgid "https://affiliate-program.amazon.com/"
+msgstr "https://affiliate-program.amazon.com/"

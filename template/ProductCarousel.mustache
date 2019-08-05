@@ -1,0 +1,145 @@
+<!-- Ad Template with Carousel Layout-->
+{{#Items}} <!--Section tag for iterating through the list of items-->
+<div class="aalb-product-carousel-unit" id="{{ID}}">
+  <h2 class="aalb-pc-ad-header">{{#AalbHeader}}{{ProductsFromAmazonLabel}}{{/AalbHeader}}</h2> <!-- Title of the ad localized according to the marketplace picked from the AalbHeader tag-->
+    <div class="aalb-pc-wrapper">
+      <div class="aalb-pc-product-container">
+        <ul class="aalb-pc-product-list">
+          {{#Item}} <!-- Section tag for beginning of information on one item -->
+            {{#aalb}} <!-- Section tag for picking up information on attributes for the item -->
+              <li class="aalb-pc-product">
+                <div class="aalb-pc-product-image">
+                  <div class="aalb-pc-product-image-wrapper">
+                    <a href="{{DetailPageURL}}" title="{{Title}}" target="_blank" rel="nofollow"> <!--Individual attributes are provided as variable tags as {{[[attribute]]}}. Check documentation for list of supported variable tags.-->
+                      <img src="{{MediumImageURL}}" srcset="{{LargeImageURL}}" alt="{{Title}}" />
+                      {{#SavingPercent}} <!-- The section tag ensures that percentage savings is displayed only if it is available -->
+                        <span class="aalb-pc-percent-off">
+                          -{{SavingPercent}}%
+                        </span>
+                      {{/SavingPercent}}
+                    </a>
+                  </div>
+                </div>
+                <div class="aalb-pc-product-details">
+                  <div class="aalb-pc-product-title">
+                    <a href="{{DetailPageURL}}" title="{{Title}}" target="_blank" rel="nofollow">
+                      {{Title}}
+                    </a>
+                  </div>
+                  <div class="aalb-pc-product-offer-price">
+                    <!-- The section tag for different marketplaces ensures localization of static text.  -->
+                    {{PriceLabel}}: <span class="aalb-pc-product-offer-price-value">{{CurrentPrice}}</span>
+                  </div>
+                  {{#StrikePrice}} <!-- The section tag ensures that strike price is displayed only if it is available -->
+                    <div class="aalb-pc-product-list-price">
+                      <!-- The section tag for different marketplaces ensures localization of static text.  -->
+                      {{StrikePriceLabel}}: <span class="aalb-pc-product-list-price-value">{{StrikePrice}}</span>
+                    </div>
+                  {{/StrikePrice}}
+                  {{#Prime}} <!-- The section tag ensures that prime icon is displayed only if it is available -->
+                    <div class="aalb-pc-product-prime-icon">
+                        <i class="icon-prime-all"></i>
+                    </div>
+                  {{/Prime}}
+                </div>
+              </li>
+            {{/aalb}}
+          {{/Item}}
+        </ul>
+      </div>
+    </div>
+    <a href="javascript:void(0);" class="aalb-pc-btn-prev">‹</a>
+    <a href="javascript:void(0);" class="aalb-pc-btn-next">›</a>
+  </div>
+{{/Items}}
+
+<script>
+  jQuery(document).ready(function() {
+
+    var CONSTANTS = {
+        productMinWidth : 185,
+        productMargin   : 20
+    };
+
+    var $adUnits = jQuery('.aalb-product-carousel-unit');
+    $adUnits.each(function() {
+        var $adUnit           = jQuery(this),
+            $wrapper          = $adUnit.find('.aalb-pc-wrapper'),
+            $productContainer = $adUnit.find('.aalb-pc-product-container'),
+            $btnNext          = $adUnit.find('.aalb-pc-btn-next'),
+            $btnPrev          = $adUnit.find('.aalb-pc-btn-prev'),
+            $productList      = $productContainer.find('.aalb-pc-product-list'),
+            $products         = $productList.find('.aalb-pc-product'),
+            productCount      = $products.length;
+
+        if (!productCount) {
+            return true;
+        }
+
+        var rows            = $adUnit.find('input[name=rows]').length && parseInt($adUnit.find('input[name=rows]').val(), 10);
+        var columns         = $adUnit.find('input[name=columns]').length && parseInt($adUnit.find('input[name=columns]').val(), 10);
+
+        if( columns ) {
+            var productContainerMinWidth = columns * (CONSTANTS.productMinWidth + CONSTANTS.productMargin) + 'px';
+            $adUnit.css( 'min-width', productContainerMinWidth );
+            $productContainer.css( 'min-width', productContainerMinWidth );
+            $products.filter( ':nth-child(' + columns + 'n + 1)' ).css( 'clear', 'both' );
+        }
+
+        if (rows && columns) {
+            var cutOffIndex = (rows * columns) - 1;
+            $products.filter(':gt(' + cutOffIndex + ')').remove();
+        }
+
+        function updateLayout() {
+            var wrapperWidth = $wrapper.width();
+            var possibleColumns = columns || parseInt( wrapperWidth / (CONSTANTS.productMinWidth + CONSTANTS.productMargin), 10 );
+            var actualColumns = columns || possibleColumns < productCount ? possibleColumns : productCount;
+
+            /**
+             * The actual columns can be zero when the wraperwidth is less than sum of CONSTANTS.productMinWidth and
+             * CONSTANTS.productMargin.The parseInt will use floor function and converts any value less than 1 to
+             * zero.Therefore making actual columns 1 .
+             **/
+            if( actualColumns == 0 ) {
+                actualColumns = 1;
+            }
+
+            var productWidth = parseInt( wrapperWidth / actualColumns, 10 ) - CONSTANTS.productMargin;
+
+            $products.css( 'width', productWidth + 'px' );
+
+            /**
+             * Removing the Carousel navigation button when the number of products selected by admin is less
+             * than the actual columns (the number of products) can be shown on screen
+             **/
+            if( productCount > actualColumns ) {
+                $btnNext.css( 'visibility', 'visible' ).removeClass( 'disabled' ).unbind( 'click' );
+                $btnPrev.css( 'visibility', 'visible' ).removeClass( 'disabled' ).unbind( 'click' );
+            }
+            $productContainer.jCarouselLite( {
+                btnNext : '#' + $adUnit.attr( 'id' ) + ' .aalb-pc-btn-next',
+                btnPrev : '#' + $adUnit.attr( 'id' ) + ' .aalb-pc-btn-prev',
+                visible : actualColumns,
+                circular: false
+            } );
+
+
+        }
+
+        updateLayout();
+        jQuery(window).resize(updateLayout);
+    });
+});
+
+/*!
+ * jCarouselLite - v1.1 - 2014-09-28
+ * http://www.gmarwaha.com/jquery/jcarousellite/
+ * Copyright (c) 2014 Ganeshji Marwaha
+ * Licensed MIT (https://github.com/ganeshmax/jcarousellite/blob/master/LICENSE)
+*/
+
+!function(a){a.jCarouselLite={version:"1.1"},a.fn.jCarouselLite=function(b){return b=a.extend({},a.fn.jCarouselLite.options,b||{}),this.each(function(){function c(a){return n||(clearTimeout(A),z=a,b.beforeStart&&b.beforeStart.call(this,i()),b.circular?j(a):k(a),m({start:function(){n=!0},done:function(){b.afterEnd&&b.afterEnd.call(this,i()),b.auto&&h(),n=!1}}),b.circular||l()),!1}function d(){if(n=!1,o=b.vertical?"top":"left",p=b.vertical?"height":"width",q=B.find(">ul"),r=q.find(">li"),x=r.size(),w=lt(x,b.visible)?x:b.visible,b.circular){var c=r.slice(x-w).clone(),d=r.slice(0,w).clone();q.prepend(c).append(d),b.start+=w}s=a("li",q),y=s.size(),z=b.start}function e(){B.css("visibility","visible"),s.css({overflow:"hidden","float":b.vertical?"none":"left"}),q.css({margin:"0",padding:"0",position:"relative","list-style":"none","z-index":"1"}),B.css({overflow:"hidden",position:"relative","z-index":"2",left:"0px"}),!b.circular&&b.btnPrev&&0==b.start&&a(b.btnPrev).addClass("disabled")}function f(){t=b.vertical?s.outerHeight(!0):s.outerWidth(!0),u=t*y,v=t*w,s.css({width:s.width(),height:s.height()}),q.css(p,u+"px").css(o,-(z*t)),B.css(p,v+"px")}function g(){b.btnPrev&&a(b.btnPrev).click(function(){return c(z-b.scroll)}),b.btnNext&&a(b.btnNext).click(function(){return c(z+b.scroll)}),b.btnGo&&a.each(b.btnGo,function(d,e){a(e).click(function(){return c(b.circular?w+d:d)})}),b.mouseWheel&&B.mousewheel&&B.mousewheel(function(a,d){return c(d>0?z-b.scroll:z+b.scroll)}),b.auto&&h()}function h(){A=setTimeout(function(){c(z+b.scroll)},b.auto)} function lt(a,b){return a<b;} function gt(a, b) { return a>b;} function i(){return s.slice(z).slice(0,w)}function j(a){var c;a<=b.start-w-1?(c=a+x+b.scroll,q.css(o,-(c*t)+"px"),z=c-b.scroll):a>=y-w+1&&(c=a-x-b.scroll,q.css(o,-(c*t)+"px"),z=c+b.scroll)}function k(a){0>a?z=0:a>y-w&&(z=y-w)}function l(){a(b.btnPrev+","+b.btnNext).removeClass("disabled"),a(z-lt(b.scroll,0)&&b.btnPrev||z+gt(b.scroll, y)-w&&b.btnNext||[]).addClass("disabled")}function m(c){n=!0,q.animate("left"==o?{left:-(z*t)}:{top:-(z*t)},a.extend({duration:b.speed,easing:b.easing},c))}var n,o,p,q,r,s,t,u,v,w,x,y,z,A,B=a(this);d(),e(),f(),g()})},a.fn.jCarouselLite.options={btnPrev:null,btnNext:null,btnGo:null,mouseWheel:!1,auto:null,speed:200,easing:null,vertical:!1,circular:!0,visible:3,start:0,scroll:1,beforeStart:null,afterEnd:null}}(jQuery);
+
+
+</script>

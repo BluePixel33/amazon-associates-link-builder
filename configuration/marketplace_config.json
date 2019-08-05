@@ -1,0 +1,227 @@
+{
+  "Local": {
+    "Marketplace": {
+      "AU": {
+        "impression_recorder_service": {
+          "endpoint": "ir-jp.amazon-adsystem.com",
+          "org_unit_id": 36
+        },
+        "about_page": {
+          "display_name": "Australia",
+          "associates_page_url": "https://affiliate-program.amazon.com.au/"
+        },
+        "strings":  {
+          "price": "Price",
+          "strike_price_string": "Was",
+          "products_from_amazon": "Products from Amazon.com.au",
+          "check_on_amazon": "Check on Amazon",
+          "out_of_stock": "Out of stock"
+        }
+      },
+      "BR": {
+        "impression_recorder_service": {
+          "endpoint": "ir-br.amazon-adsystem.com",
+          "org_unit_id": 33
+        },
+        "about_page": {
+          "display_name": "Brazil",
+          "associates_page_url": "https://associados.amazon.com.br/"
+        },
+        "strings":  {
+          "price": "Price",
+          "strike_price_string": "Was",
+          "products_from_amazon": "Products from Amazon.com.br",
+          "check_on_amazon": "Check on Amazon",
+          "out_of_stock": "Out of stock"
+        }
+      },
+      "CA": {
+        "impression_recorder_service": {
+          "endpoint": "ir-ca.amazon-adsystem.com",
+          "org_unit_id": 15
+        },
+        "about_page": {
+          "display_name": "Canada",
+          "associates_page_url": "https://associates.amazon.ca/"
+        },
+        "strings":  {
+          "price": "Price",
+          "strike_price_string": "Was",
+          "products_from_amazon": "Products from Amazon.ca",
+          "check_on_amazon": "Check on Amazon",
+          "out_of_stock": "Out of stock"
+        }
+      },
+      "CN": {
+        "impression_recorder_service": {
+          "endpoint": "ir-cn.amazon-adsystem.com",
+          "org_unit_id": 28
+        },
+        "about_page": {
+          "display_name": "China",
+          "associates_page_url": "https://associates.amazon.cn/"
+        },
+        "strings":  {
+          "price": "Price",
+          "strike_price_string": "Was",
+          "products_from_amazon": "Products from Amazon.cn",
+          "check_on_amazon": "Check on Amazon",
+          "out_of_stock": "Out of stock"
+        }
+      },
+      "DE": {
+        "impression_recorder_service": {
+          "endpoint": "ir-de.amazon-adsystem.com",
+          "org_unit_id": 3
+        },
+        "about_page": {
+          "display_name": "Germany",
+          "associates_page_url": "https://partnernet.amazon.de/"
+        },
+        "strings":  {
+          "price": "Preis",
+          "strike_price_string": "statt",
+          "products_from_amazon": "Produkte von Amazon.de",
+          "check_on_amazon": "Hier auf Amazon.de",
+          "out_of_stock": "Derzeit nicht verfügbar"
+        }
+      },
+      "ES": {
+        "impression_recorder_service": {
+          "endpoint": "ir-es.amazon-adsystem.com",
+          "org_unit_id": 30
+        },
+        "about_page": {
+          "display_name": "Spain",
+          "associates_page_url": "https://afiliados.amazon.es/"
+        },
+        "strings":  {
+          "price": "Precio",
+          "strike_price_string": "Precio recomendado",
+          "products_from_amazon": "Producto disponible en Amazon.es",
+          "check_on_amazon": "Consultar en Amazon.es",
+          "out_of_stock": "Producto no disponible"
+        }
+      },
+      "FR": {
+        "impression_recorder_service": {
+          "endpoint": "ir-fr.amazon-adsystem.com",
+          "org_unit_id": 8
+        },
+        "about_page": {
+          "display_name": "France",
+          "associates_page_url": "http://partenaires.amazon.fr/"
+        },
+        "strings":  {
+          "price": "Prix",
+          "strike_price_string": "Ancien prix",
+          "products_from_amazon": "Produits disponibles sur Amazon.fr",
+          "check_on_amazon": "Consulter sur Amazon.fr",
+          "out_of_stock": "Rupture de stock"
+        }
+      },
+      "IN": {
+        "impression_recorder_service": {
+          "endpoint": "ir-in.amazon-adsystem.com",
+          "org_unit_id": 31
+        },
+        "about_page": {
+          "display_name": "India",
+          "associates_page_url": "http://affiliate-program.amazon.in/"
+        },
+        "strings":  {
+          "price": "Price",
+          "strike_price_string": "Was",
+          "products_from_amazon": "Products from Amazon.in",
+          "check_on_amazon": "Check on Amazon",
+          "out_of_stock": "Out of stock"
+        }
+      },
+      "IT": {
+        "impression_recorder_service": {
+          "endpoint": "ir-it.amazon-adsystem.com",
+          "org_unit_id": 29
+        },
+        "about_page": {
+          "display_name": "Italy",
+          "associates_page_url": "https://programma-affiliazione.amazon.it/"
+        },
+        "strings":  {
+          "price": "Prezzo",
+          "strike_price_string": "Da",
+          "products_from_amazon": "Acquista su Amazon.it",
+          "check_on_amazon": "Vedi su Amazon.it",
+          "out_of_stock": "Non disponibile"
+        }
+      },
+      "JP": {
+        "impression_recorder_service": {
+          "endpoint": "ir-jp.amazon-adsystem.com",
+          "org_unit_id": 9
+        },
+        "about_page": {
+          "display_name": "Japan",
+          "associates_page_url": "https://affiliate.amazon.co.jp/"
+        },
+        "strings":  {
+          "price": "Price",
+          "strike_price_string": "Was",
+          "products_from_amazon": "Products from Amazon.co.jp",
+          "check_on_amazon": "Check on Amazon",
+          "out_of_stock": "Out of stock"
+        }
+      },
+      "MX": {
+        "impression_recorder_service": {
+          "endpoint": "ir-mx.amazon-adsystem.com",
+          "org_unit_id": 34
+        },
+        "about_page": {
+          "display_name": "Mexico",
+          "associates_page_url": "https://afiliados.amazon.com.mx/"
+        },
+        "strings":  {
+          "price": "Price",
+          "strike_price_string": "Was",
+          "products_from_amazon": "Products from Amazon.com.mx",
+          "check_on_amazon": "Check on Amazon",
+          "out_of_stock": "Out of stock"
+        }
+      },
+      "UK": {
+        "impression_recorder_service": {
+          "endpoint": "ir-uk.amazon-adsystem.com",
+          "org_unit_id": 2
+        },
+        "about_page": {
+          "display_name": "United Kingdom",
+          "associates_page_url": "https://affiliate-program.amazon.co.uk/"
+        },
+        "strings":  {
+          "price": "Price",
+          "strike_price_string": "Was",
+          "products_from_amazon": "Products from Amazon.co.uk",
+          "check_on_amazon": "Check on Amazon",
+          "out_of_stock": "Out of stock"
+        }
+      },
+      "US": {
+        "impression_recorder_service": {
+          "endpoint": "ir-na.amazon-adsystem.com",
+          "org_unit_id": 1
+        },
+        "about_page": {
+          "display_name": "United States",
+          "associates_page_url": "https://affiliate-program.amazon.com/"
+        },
+        "strings":  {
+          "price": "Price",
+          "strike_price_string": "Was",
+          "products_from_amazon": "Products from Amazon.com",
+          "check_on_amazon": "Check on Amazon",
+          "out_of_stock": "Out of stock"
+        }
+      }
+    }
+  }
+}

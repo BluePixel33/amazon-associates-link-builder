@@ -1,0 +1,52 @@
+<!-- A 2x5 Grid Template Layout. It can be configured by the two input fields below -->
+{{#Items}} <!--Section tag for iterating through the list of items-->
+<div class="aalb-pg-ad-unit" id="{{ID}}">
+    <h2 class="aalb-pg-ad-header">{{#AalbHeader}}{{ProductsFromAmazonLabel}}{{/AalbHeader}}</h2> <!-- Title of the ad localized according to the marketplace picked from the AalbHeader tag -->
+    <div class="aalb-pg-wrapper">
+      <div class="aalb-pg-product-container">
+        <ul class="aalb-pg-product-list">
+          {{#Item}} <!-- Section tag for beginning of information on one item -->
+            {{#aalb}} <!-- Section tag for picking up information on attributes for the item -->
+              <li class="aalb-pg-product">
+                <div class="aalb-pg-product-image">
+                  <div class="aalb-pg-product-image-wrapper">
+                    <a href="{{DetailPageURL}}" title="{{Title}}" target="_blank" rel="nofollow"> <!--Individual attributes are provided as variable tags as {{[[attribute]]}}. Check documentation for list of supported variable tags.-->
+                      <img src="{{MediumImageURL}}" srcset="{{LargeImageURL}}" alt="{{Title}}" />
+                      {{#SavingPercent}} <!-- The section tag ensures that percentage savings is displayed only if it is available -->
+                        <span class="aalb-pg-percent-off">
+                          -{{SavingPercent}}%
+                        </span>
+                      {{/SavingPercent}}
+                    </a>
+                  </div>
+                </div>
+                <div class="aalb-pg-product-details">
+                  <div class="aalb-pg-product-title">
+                    <a href="{{DetailPageURL}}" title="{{Title}}" target="_blank" rel="nofollow">
+                      {{Title}}
+                    </a>
+                  </div>
+                  <div class="aalb-pg-product-offer-price">
+                    <!-- The section tag for different marketplaces ensures localization of static text.  -->
+                    {{PriceLabel}}: <span class="aalb-pg-product-offer-price-value">{{CurrentPrice}}</span>
+                  </div>
+                  {{#StrikePrice}} <!-- The section tag ensures that strike price is displayed only if it is available -->
+                    <div class="aalb-pg-product-list-price">
+                      <!-- The section tag for different marketplaces ensures localization of static text.  -->
+                      {{StrikePriceLabel}}: <span class="aalb-pg-product-list-price-value">{{StrikePrice}}</span>
+                    </div>
+                  {{/StrikePrice}}
+                  {{#Prime}} <!-- The section tag ensures that prime icon is displayed only if it is available -->
+                    <div class="aalb-pg-product-prime-icon">
+                        <i class="icon-prime-all"></i>
+                    </div>
+                  {{/Prime}}
+                </div>
+              </li>
+            {{/aalb}}
+          {{/Item}}
+        </ul>
+      </div>
+    </div>
+  </div>
+{{/Items}}
