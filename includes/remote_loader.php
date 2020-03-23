@@ -66,7 +66,7 @@ class Remote_Loader {
      *
      * @return string Response body.
      */
-    private function verify( $response ) {
+    public function verify( $response ) {
         if ( is_wp_error( $response ) ) {
             $error_message = $response->get_error_message();
             if ( strpos( $error_message, HTTP_Constants::CURL_ERROR_TIMEOUT_STRING ) !== false ) {

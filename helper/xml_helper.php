@@ -60,7 +60,7 @@ class Xml_Helper {
     public function get_basic_info( $item ) {
         return array(
             XML_Constants::ASIN            => ! empty( $item->ASIN ) ? $item->ASIN : null,
-            XML_Constants::TITLE           => ! empty( $item->ItemAttributes->Title ) ? $item->ItemAttributes->Title : null,
+            XML_Constants::TITLE           => ! empty( $item->ItemInfo->Title->DisplayValue ) ? $item->ItemInfo->Title->DisplayValue : null,
             XML_Constants::DETAIL_PAGE_URL => ! empty( $item->DetailPageURL ) ? $item->DetailPageURL : null
         );
     }
@@ -77,9 +77,9 @@ class Xml_Helper {
      */
     public function get_image_urls( $item ) {
         return array(
-            XML_Constants::LARGE_IMAGE_URL  => ! empty( $item->LargeImage->URL ) ? $item->LargeImage->URL : null,
-            XML_Constants::MEDIUM_IMAGE_URL => ! empty( $item->MediumImage->URL ) ? $item->MediumImage->URL : null,
-            XML_Constants::SMALL_IMAGE_URL  => ! empty( $item->SmallImage->URL ) ? $item->SmallImage->URL : null,
+            XML_Constants::LARGE_IMAGE_URL  => ! empty( $item->Images->Primary->Large ) ? $item->Images->Primary->Large->URL : null,
+            XML_Constants::MEDIUM_IMAGE_URL => ! empty( $item->Images->Primary->Medium ) ? $item->Images->Primary->Medium->URL : null,
+            XML_Constants::SMALL_IMAGE_URL  => ! empty( $item->Images->Primary->Small ) ? $item->Images->Primary->Small->URL : null,
         );
     }
 
@@ -116,14 +116,13 @@ class Xml_Helper {
         $brand_array = array();
         $artist_array = array();
         $by_information = array();
-        foreach ( $item->ItemAttributes->Author as $author ) {
-            array_push( $author_array, $author );
+        if ( ! empty( $item->ItemInfo->ByLineInfo->Contributors ) ) {
+            foreach ( $item->ItemInfo->ByLineInfo->Contributors as $author ) {
+                array_push( $author_array, $author->Name );
+            }
         }
-        foreach ( $item->ItemAttributes->Brand as $brand ) {
-            array_push( $brand_array, $brand );
-        }
-        foreach ( $item->ItemAttributes->Artist as $artist ) {
-            array_push( $artist_array, $artist );
+        if ( ! empty( $item->ItemInfo->ByLineInfo->Brand ) ) {
+            array_push( $brand_array, $item->ItemInfo->ByLineInfo->Brand->DisplayValue );
         }
         if ( ! empty( $author_array ) ) {
             array_push( $by_information, implode( ', ', $author_array ) );
@@ -189,10 +188,14 @@ class Xml_Helper {
      * @return array Node to which values are added
      */
     private function get_savings_info( $item ) {
+        $listing = null;
+        if ( ! empty( $item->Offers->Listings ) ) {
+            $listing = $item->Offers->Listings->Item[0];
+        }
         return array(
-            XML_Constants::SAVING         => ! empty( $item->Offers->Offer->OfferListing->AmountSaved->FormattedPrice ) ? $item->Offers->Offer->OfferListing->AmountSaved->FormattedPrice : null,
-            XML_Constants::SAVING_VALUE   => ! empty( $item->Offers->Offer->OfferListing->AmountSaved->Amount ) ? $item->Offers->Offer->OfferListing->AmountSaved->Amount : null,
-            XML_Constants::SAVING_PERCENT => ! empty( $item->Offers->Offer->OfferListing->PercentageSaved ) ? $item->Offers->Offer->OfferListing->PercentageSaved : null
+            XML_Constants::SAVING         => ! empty( $listing ) ? $listing->Price->Savings->DisplayAmount : null,
+            XML_Constants::SAVING_VALUE   => ! empty( $listing ) ? intval( $listing->Price->Savings->Amount*100 ) : null,
+            XML_Constants::SAVING_PERCENT => ! empty( $listing ) ? $listing->Price->Savings->Percentage : null
         );
     }
 
@@ -207,9 +210,16 @@ class Xml_Helper {
      * @return array $min_price_info
      */
     private function get_min_price_info( $item ) {
+        $new = null;
+        if ( ! empty( $item->Offers->Summaries ) ) {
+            foreach ( $item->Offers->Summaries->Item as $summary ) {
+                if ( $summary->Condition->Value == "New" )
+                    $new = $summary;
+            }
+        }
         return array(
-            XML_Constants::MINIMUM_PRICE       => ! empty( $item->OfferSummary->LowestNewPrice->FormattedPrice ) ? $item->OfferSummary->LowestNewPrice->FormattedPrice : null,
-            XML_Constants::MINIMUM_PRICE_VALUE => ! empty( $item->OfferSummary->LowestNewPrice->Amount ) ? $item->OfferSummary->LowestNewPrice->Amount : null
+            XML_Constants::MINIMUM_PRICE       => ! empty( $new ) ? $new->LowestPrice->DisplayAmount : null,
+            XML_Constants::MINIMUM_PRICE_VALUE => ! empty( $new ) ? intval( $new->LowestPrice->Amount*100 ) : null
         );
     }
 
@@ -223,7 +233,11 @@ class Xml_Helper {
      * @return boolean is_prime_eligible
      */
     public function get_prime_eligibility( $item ) {
-        return ! empty( $item->Offers->Offer->OfferListing->IsEligibleForPrime ) ? $item->Offers->Offer->OfferListing->IsEligibleForPrime : null;
+        $listing = null;
+        if ( ! empty( $item->Offers->Listings ) ) {
+            $listing = $item->Offers->Listings->Item[0];
+        }
+        return ! empty( $listing ) ? $listing->DeliveryInfo->IsPrimeEligible : null;
     }
 
     /**
@@ -236,7 +250,11 @@ class Xml_Helper {
      * @return String Merchant name if exists else null.
      */
     public function get_merchant_name( $item ) {
-        return ! empty ( $item->Offers->Offer->Merchant->Name ) ? $item->Offers->Offer->Merchant->Name : null;
+        $listing = null;
+        if ( ! empty( $item->Offers->Listings ) ) {
+            $listing = $item->Offers->Listings->Item[0];
+        }
+        return ! empty( $listing ) ? $listing->MerchantInfo->Name : null;
     }
 
     /**
@@ -251,12 +269,16 @@ class Xml_Helper {
      * @return array $strike_price_and_current_price_info
      */
     private function get_current_and_strike_price( $item, $saving_percent ) {
-        $list_price = ! empty( $item->ItemAttributes->ListPrice->FormattedPrice ) ? $item->ItemAttributes->ListPrice->FormattedPrice : null;
-        $price = ! empty( $item->Offers->Offer->OfferListing->Price->FormattedPrice ) ? $item->Offers->Offer->OfferListing->Price->FormattedPrice : null;
-        $sale_price = ! empty( $item->Offers->Offer->OfferListing->SalePrice->FormattedPrice ) ? $item->Offers->Offer->OfferListing->SalePrice->FormattedPrice : null;
-        $list_price_amount = ! empty( $item->ItemAttributes->ListPrice->Amount ) ? $item->ItemAttributes->ListPrice->Amount : null;
-        $price_amount = ! empty( $item->Offers->Offer->OfferListing->Price->Amount ) ? $item->Offers->Offer->OfferListing->Price->Amount : null;
-        $sale_price_amount = ! empty( $item->Offers->Offer->OfferListing->SalePrice->Amount ) ? $item->Offers->Offer->OfferListing->SalePrice->Amount : null;
+        $listing = null;
+        if ( ! empty( $item->Offers->Listings ) ) {
+            $listing = $item->Offers->Listings->Item[0];
+        }
+        $list_price = ! empty( $listing ) ? $listing->SavingBasis->DisplayAmount : null;
+        $price = ! empty( $listing ) ? $listing->SavingBasis->DisplayAmount : null;
+        $sale_price = ! empty( $listing ) ? $listing->Price->DisplayAmount : null;
+        $list_price_amount = ! empty( $listing ) ? intval( $listing->SavingBasis->Amount*100 ) : null;
+        $price_amount = ! empty( $listing ) ? intval( $listing->SavingBasis->Amount*100 ) : null;
+        $sale_price_amount = ! empty( $listing ) ? intval( $listing->Price->Amount*100 ) : null;
 
         //Null is set to Zero on Typecasting
         $saving_percent = ! empty( $saving_percent ) ? (int) $saving_percent : 0;
@@ -298,10 +320,21 @@ class Xml_Helper {
      * @return boolean is_out_of_stock
      */
     private function is_out_of_stock( $item ) {
-        $total_new = isset( $item->OfferSummary->TotalNew ) ? $item->OfferSummary->TotalNew : null;
-        $availability = isset( $item->Offers->Offer->OfferListing->Availability ) ? $item->Offers->Offer->OfferListing->Availability : null;
+        $listing = null;
+        if ( ! empty( $item->Offers->Listings ) ) {
+            $listing = $item->Offers->Listings->Item[0];
+        }
+        $new = null;
+        if ( ! empty( $item->Offers->Summaries ) ) {
+            foreach ( $item->Offers->Summaries->Item as $summary ) {
+                if ( $summary->Condition->Value == "New" )
+                    $new = $summary;
+            }
+        }
+        $total_new = isset( $new ) ? $new->OfferCount : null;
+        $availability = isset( $listing ) ? $listing->Availability->Type : null;
 
-        return $total_new == '0' or $availability == XML_Constants::OUT_OF_STOCK_VALUE;
+        return $total_new == '0' or $availability == XML_Constants::OUT_OF_STOCK_VALUE or empty( $total_new ) or empty( $availability );
     }
 
     /**

@@ -1,9 +1,9 @@
 === Amazon Associates Link Builder ===
-Contributors: amazonlinkbuilder
+Contributors: amazonlinkbuilder, BluePixel33
 Tags: Amazon, Affiliate, Associates, Amazon Associates, Amazon Associate, Product Advertising API, Amazon API, Amazon Link, Amazon Ad, Amazon Affiliate, eCommerce
 Requires at least: 3.0.1
 Tested up to: 5.0.3
-Stable tag: 1.9.3
+Stable tag: 1.9.4
 Requires PHP: 5.4.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -123,6 +123,9 @@ The customer will be shown ads from the first country added in shortcode.
 You can see your earnings and other reports from the respective country Associates Portal under "Amazon Associates Link Builder" section.
 
 == Changelog ==
+
+= 1.9.4 - March 23, 2020 =
+* Added support for Product Advertising API 5.0.
 
 = 1.9.3 - August 05, 2019 =
 * Fix : Malformed URL for tracking IDs starting with numbers in v1.9.2.
@@ -265,6 +268,9 @@ You can see your earnings and other reports from the respective country Associat
 * Plugin released for beta testing
 
 == Upgrade Notice ==
+
+= 1.9.4 - March 23, 2020 =
+* Added support for Product Advertising API 5.0.
 
 = 1.9.3 - August 05, 2019 =
 * Fix : Malformed URL for tracking IDs starting with numbers in v1.9.2.

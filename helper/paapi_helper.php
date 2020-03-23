@@ -36,88 +36,6 @@ class Paapi_Helper {
     }
 
     /**
-     * Returns the item lookup URL for asins
-     *
-     * @param string $asin         Asin value.
-     * @param string $marketplaces Marketplace to search the products.
-     * @param string $tracking_id  Associate tag.
-     *
-     * @return string Signed URL for item lookup.
-     */
-    function get_item_lookup_url( $asin_array, $marketplace, $tracking_id ) {
-        $marketplace_endpoint = $this->get_marketplace_endpoint( $marketplace );
-        $asin = implode( ",", $asin_array );
-        $params = array(
-            "Operation" => "ItemLookup", "ItemId" => "$asin", "IdType" => "ASIN", "ResponseGroup" => "Images,ItemAttributes,OfferFull", "AssociateTag" => "$tracking_id",
-        );
-        $url = $this->aws_signed_url( $params, $marketplace_endpoint );
-
-        return $url;
-    }
-
-    /**
-     * Returns signed URL for Paapi request
-     *
-     * @since 1.0.0
-     *
-     * @param array $params       Paapi parameters.
-     * @param string $marketplace Marketplace to search the product.
-     *
-     * @return string Signed URL.
-     */
-    function aws_signed_url( $params, $marketplace ) {
-        $access_key_id = openssl_decrypt( base64_decode( get_option( Db_Constants::AWS_ACCESS_KEY ) ), Plugin_Constants::ENCRYPTION_ALGORITHM, Plugin_Constants::ENCRYPTION_KEY, 0, Plugin_Constants::ENCRYPTION_IV );
-        $secret_key = openssl_decrypt( base64_decode( get_option( Db_Constants::AWS_SECRET_KEY ) ), Plugin_Constants::ENCRYPTION_ALGORITHM, Plugin_Constants::ENCRYPTION_KEY, 0, Plugin_Constants::ENCRYPTION_IV );
-        $host = $marketplace;
-
-        $method = 'GET';
-        $uri = Paapi_Constants::URI;
-
-        $params["Service"] = Paapi_Constants::SERVICE;
-        $params["AWSAccessKeyId"] = $access_key_id;
-        $params["Timestamp"] = gmdate( 'Y-m-d\TH:i:s\Z' );
-        $params["Version"] = Paapi_Constants::VERSION;
-
-        ksort( $params );
-
-        $canonicalized_query = array();
-        foreach ( $params as $param => $value ) {
-            $param = str_replace( "%7E", "~", rawurlencode( $param ) );
-            $value = str_replace( "%7E", "~", rawurlencode( $value ) );
-            $canonicalized_query[] = $param . "=" . $value;
-        }
-
-        $canonicalized_query = implode( "&", $canonicalized_query );
-
-        $string_to_sign = $method . "\n" . $host . "\n" . $uri . "\n" . $canonicalized_query;
-        $signature = base64_encode( hash_hmac( "sha256", $string_to_sign, $secret_key, true ) );
-        $signature = str_replace( "%7E", "~", rawurlencode( $signature ) );
-
-        $signed_url = Paapi_Constants::TRANSFER_PROTOCOL . $host . $uri . Paapi_Constants::URL_QUERY_SEPARATOR . $canonicalized_query . "&Signature=" . $signature;
-
-        return $signed_url;
-    }
-
-    /**
-     * Returns the item search URL for search keywords
-     *
-     * @param string $search_keywords Search keywords of the products.
-     * @param string $marketplaces    Marketplace to search the products.
-     * @param string $tracking_id     Associate tag.
-     *
-     * @return string Signed URL for item search.
-     */
-    function get_item_search_url( $search_keywords, $marketplace, $tracking_id ) {
-        $marketplace_endpoint = $this->get_marketplace_endpoint( $marketplace );
-        $params = array(
-            "Operation" => "ItemSearch", "SearchIndex" => "All", "Keywords" => "$search_keywords", "ResponseGroup" => "Images,ItemAttributes,Offers", "AssociateTag" => "$tracking_id",
-        );
-        $url = $this->aws_signed_url( $params, $marketplace_endpoint );
-
-        return $url;
-    }
-
-    /**
      * PA-API error messages to display in case of request errors
      *
      * @param string $error code Error code of the request.
@@ -175,7 +93,7 @@ class Paapi_Helper {
      *
      * @return string store_id for given marketplace
      */
-    public function get_store_id_for_marketplace( $marketplace ){
+    public function get_store_id_for_marketplace( $marketplace ) {
         try{
             $store_ids_list = json_decode( get_option( Db_Constants::STORE_IDS ));
             $store_ids = $store_ids_list->{$marketplace};
@@ -187,6 +105,229 @@ class Paapi_Helper {
         return $store_id;
     }
 
+    /**
+     * Returns the item lookup response for the requested asins
+     *
+     * @param string $asins_array     Array of asins.
+     * @param string $marketplace_url Marketplace to search the products.
+     * @param string $store_id        Associate tag.
+     *
+     * @return string Response for item lookup.
+     */
+    public function get_item_lookup_response( $asins_array, $marketplace_url, $store_id ) {
+        $access_key_id = openssl_decrypt( base64_decode( get_option( Db_Constants::AWS_ACCESS_KEY ) ), Plugin_Constants::ENCRYPTION_ALGORITHM, Plugin_Constants::ENCRYPTION_KEY, 0, Plugin_Constants::ENCRYPTION_IV );
+        $secret_key = openssl_decrypt( base64_decode( get_option( Db_Constants::AWS_SECRET_KEY ) ), Plugin_Constants::ENCRYPTION_ALGORITHM, Plugin_Constants::ENCRYPTION_KEY, 0, Plugin_Constants::ENCRYPTION_IV );
+        $marketplace = strtolower( end( explode( ".", $marketplace_url ) ) );
+        //usleep(1000000);
+        $getItemRequest = new GetItemsRequest();
+        $getItemRequest->PartnerType = "Associates";
+        $getItemRequest->PartnerTag = $store_id;
+        $getItemRequest->Marketplace = "www.amazon.$marketplace";
+        $getItemRequest->ItemIds = $asins_array;
+        $getItemRequest->Resources = ["Images.Primary.Small","Images.Primary.Medium","Images.Primary.Large","ItemInfo.ProductInfo","ItemInfo.Title","Offers.Listings.Availability.Message","Offers.Listings.Availability.Type","Offers.Listings.Condition","Offers.Listings.DeliveryInfo.IsAmazonFulfilled","Offers.Listings.DeliveryInfo.IsFreeShippingEligible","Offers.Listings.DeliveryInfo.IsPrimeEligible","Offers.Listings.DeliveryInfo.ShippingCharges","Offers.Listings.MerchantInfo","Offers.Listings.Price","Offers.Listings.ProgramEligibility.IsPrimeExclusive","Offers.Listings.ProgramEligibility.IsPrimePantry","Offers.Listings.Promotions","Offers.Listings.SavingBasis","Offers.Summaries.HighestPrice","Offers.Summaries.LowestPrice","Offers.Summaries.OfferCount"];
+        $getItemRequest->Merchant = "All";
+        $host = "webservices.amazon.$marketplace";
+        $path = "/paapi5/getitems";
+        $payload = json_encode( $getItemRequest );
+        $awsv4 = new AwsV4( $access_key_id, $secret_key );
+        $awsv4->setRegionName( "eu-west-1" );
+        $awsv4->setServiceName( "ProductAdvertisingAPI" );
+        $awsv4->setPath( $path );
+        $awsv4->setPayload( $payload );
+        $awsv4->setRequestMethod( "POST" );
+        $awsv4->addHeader( 'content-encoding', 'amz-1.0' );
+        $awsv4->addHeader( 'content-type', 'application/json; charset=utf-8' );
+        $awsv4->addHeader( 'host', $host );
+        $awsv4->addHeader( 'x-amz-target', 'com.amazon.paapi5.v1.ProductAdvertisingAPIv1.GetItems' );
+        $headers = $awsv4->getHeaders();
+        return wp_remote_post( Paapi_Constants::TRANSFER_PROTOCOL . $host . $path, array(
+            'body' => $payload,
+            'timeout' => Paapi_Constants::REQUEST_TIMEOUT,
+            'headers' => $headers
+        ) );
+    }
+
+    /**
+     * Returns the item search response for the requested keywords
+     *
+     * @param string $keywords        Search keywords of the products.
+     * @param string $marketplace_url Marketplace to search the products.
+     * @param string $store_id        Associate tag.
+     *
+     * @return string Response for item search.
+     */
+    public function get_item_search_response( $keywords, $marketplace_url, $store_id ) {
+        $access_key_id = openssl_decrypt( base64_decode( get_option( Db_Constants::AWS_ACCESS_KEY ) ), Plugin_Constants::ENCRYPTION_ALGORITHM, Plugin_Constants::ENCRYPTION_KEY, 0, Plugin_Constants::ENCRYPTION_IV );
+        $secret_key = openssl_decrypt( base64_decode( get_option( Db_Constants::AWS_SECRET_KEY ) ), Plugin_Constants::ENCRYPTION_ALGORITHM, Plugin_Constants::ENCRYPTION_KEY, 0, Plugin_Constants::ENCRYPTION_IV );
+        $marketplace = strtolower( end( explode( ".", $marketplace_url ) ) );
+        //usleep(1000000);
+        $searchItemRequest = new SearchItemsRequest();
+        $searchItemRequest->PartnerType = "Associates";
+        $searchItemRequest->PartnerTag = $store_id;
+        $searchItemRequest->Marketplace = "www.amazon.$marketplace";
+        $searchItemRequest->Keywords = $keywords;
+        $searchItemRequest->SearchIndex = "All";
+        $searchItemRequest->Resources = ["Images.Primary.Small","Images.Primary.Medium","Images.Primary.Large","ItemInfo.ProductInfo","ItemInfo.Title","Offers.Listings.Availability.Message","Offers.Listings.Availability.Type","Offers.Listings.Condition","Offers.Listings.DeliveryInfo.IsAmazonFulfilled","Offers.Listings.DeliveryInfo.IsFreeShippingEligible","Offers.Listings.DeliveryInfo.IsPrimeEligible","Offers.Listings.DeliveryInfo.ShippingCharges","Offers.Listings.MerchantInfo","Offers.Listings.Price","Offers.Listings.ProgramEligibility.IsPrimeExclusive","Offers.Listings.ProgramEligibility.IsPrimePantry","Offers.Listings.Promotions","Offers.Listings.SavingBasis","Offers.Summaries.HighestPrice","Offers.Summaries.LowestPrice","Offers.Summaries.OfferCount"];
+        $searchItemRequest->Merchant = "All";
+        $host = "webservices.amazon.$marketplace";
+        $path = "/paapi5/searchitems";
+        $payload = json_encode( $searchItemRequest );
+        $awsv4 = new AwsV4( $access_key_id, $secret_key );
+        $awsv4->setRegionName( "eu-west-1" );
+        $awsv4->setServiceName( "ProductAdvertisingAPI" );
+        $awsv4->setPath( $path );
+        $awsv4->setPayload( $payload );
+        $awsv4->setRequestMethod( "POST" );
+        $awsv4->addHeader( 'content-encoding', 'amz-1.0' );
+        $awsv4->addHeader( 'content-type', 'application/json; charset=utf-8' );
+        $awsv4->addHeader( 'host', $host );
+        $awsv4->addHeader( 'x-amz-target', 'com.amazon.paapi5.v1.ProductAdvertisingAPIv1.SearchItems' );
+        $headers = $awsv4->getHeaders();
+        return wp_remote_post( Paapi_Constants::TRANSFER_PROTOCOL . $host . $path, array(
+            'body' => $payload,
+            'timeout' => Paapi_Constants::REQUEST_TIMEOUT,
+            'headers' => $headers
+        ) );
+    }
+    
+}
+
+class SearchItemsRequest {
+    public $PartnerType;
+    public $PartnerTag;
+    public $Marketplace;
+    public $Keywords;
+    public $SearchIndex;
+    public $Resources;
+    public $Merchant;
+}
+
+class GetItemsRequest {
+    public $PartnerType;
+    public $PartnerTag;
+    public $Marketplace;
+    public $ItemIds;
+    public $Resources;
+    public $Merchant;
+}
+
+class AwsV4 {
+    private $accessKeyID = null;
+    private $secretAccessKey = null;
+    private $path = null;
+    private $regionName = null;
+    private $serviceName = null;
+    private $httpMethodName = null;
+    private $queryParametes = array();
+    private $awsHeaders = array();
+    private $payload = "";
+
+    private $HMACAlgorithm = "AWS4-HMAC-SHA256";
+    private $aws4Request = "aws4_request";
+    private $strSignedHeader = null;
+    private $xAmzDate = null;
+    private $currentDate = null;
+
+    public function __construct($accessKeyID, $secretAccessKey) {
+        $this->accessKeyID = $accessKeyID;
+        $this->secretAccessKey = $secretAccessKey;
+        $this->xAmzDate = $this->getTimeStamp();
+        $this->currentDate = $this->getDate();
+    }
+
+    function setPath($path) {
+        $this->path = $path;
+    }
+
+    function setServiceName($serviceName) {
+        $this->serviceName = $serviceName;
+    }
+
+    function setRegionName($regionName) {
+        $this->regionName = $regionName;
+    }
+
+    function setPayload($payload) {
+        $this->payload = $payload;
+    }
+
+    function setRequestMethod($method) {
+        $this->httpMethodName = $method;
+    }
+
+    function addHeader($headerName, $headerValue) {
+        $this->awsHeaders [$headerName] = $headerValue;
+    }
+
+    private function prepareCanonicalRequest() {
+        $canonicalURL = "";
+        $canonicalURL .= $this->httpMethodName . "\n";
+        $canonicalURL .= $this->path . "\n" . "\n";
+        $signedHeaders = '';
+        foreach ( $this->awsHeaders as $key => $value ) {
+            $signedHeaders .= $key . ";";
+            $canonicalURL .= $key . ":" . $value . "\n";
+        }
+        $canonicalURL .= "\n";
+        $this->strSignedHeader = substr( $signedHeaders, 0, - 1 );
+        $canonicalURL .= $this->strSignedHeader . "\n";
+        $canonicalURL .= $this->generateHex( $this->payload );
+        return $canonicalURL;
+    }
+
+    private function prepareStringToSign($canonicalURL) {
+        $stringToSign = '';
+        $stringToSign .= $this->HMACAlgorithm . "\n";
+        $stringToSign .= $this->xAmzDate . "\n";
+        $stringToSign .= $this->currentDate . "/" . $this->regionName . "/" . $this->serviceName . "/" . $this->aws4Request . "\n";
+        $stringToSign .= $this->generateHex( $canonicalURL );
+        return $stringToSign;
+    }
+
+    private function calculateSignature($stringToSign) {
+        $signatureKey = $this->getSignatureKey( $this->secretAccessKey, $this->currentDate, $this->regionName, $this->serviceName );
+        $signature = hash_hmac( "sha256", $stringToSign, $signatureKey, true );
+        $strHexSignature = strtolower( bin2hex( $signature ) );
+        return $strHexSignature;
+    }
+
+    public function getHeaders() {
+        $this->awsHeaders ['x-amz-date'] = $this->xAmzDate;
+        ksort( $this->awsHeaders );
+        $canonicalURL = $this->prepareCanonicalRequest();
+        $stringToSign = $this->prepareStringToSign( $canonicalURL );
+        $signature = $this->calculateSignature( $stringToSign );
+        if ($signature) {
+            $this->awsHeaders ['Authorization'] = $this->buildAuthorizationString( $signature );
+            return $this->awsHeaders;
+        }
+    }
+
+    private function buildAuthorizationString($strSignature) {
+        return $this->HMACAlgorithm . " " . "Credential=" . $this->accessKeyID . "/" . $this->getDate() . "/" . $this->regionName . "/" . $this->serviceName . "/" . $this->aws4Request . "," . "SignedHeaders=" . $this->strSignedHeader . "," . "Signature=" . $strSignature;
+    }
+
+    private function generateHex($data) {
+        return strtolower( bin2hex( hash( "sha256", $data, true ) ) );
+    }
+
+    private function getSignatureKey($key, $date, $regionName, $serviceName) {
+        $kSecret = "AWS4" . $key;
+        $kDate = hash_hmac( "sha256", $date, $kSecret, true );
+        $kRegion = hash_hmac( "sha256", $regionName, $kDate, true );
+        $kService = hash_hmac( "sha256", $serviceName, $kRegion, true );
+        $kSigning = hash_hmac( "sha256", $this->aws4Request, $kService, true );
+
+        return $kSigning;
+    }
+
+    private function getTimeStamp() {
+        return gmdate( "Ymd\THis\Z" );
+    }
+
+    private function getDate() {
+        return gmdate( "Ymd" );
+    }
 }
 
 ?>

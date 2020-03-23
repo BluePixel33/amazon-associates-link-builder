@@ -23,7 +23,7 @@ namespace AmazonAssociatesLinkBuilder\constants;
  */
 
 class Plugin_Constants {
-    const PLUGIN_CURRENT_VERSION = '1.9.3';
+    const PLUGIN_CURRENT_VERSION = '1.9.4';
     //Version no. with multi locale settings page
     const MULTI_LOCALE_SETTINGS_PLUGIN_VERSION = '1.4.12';
     const WORDPRESS_REQUEST_TIMEOUT_IN_MS = 40000;

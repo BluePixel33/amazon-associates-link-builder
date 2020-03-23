@@ -265,9 +265,9 @@ class Plugin_Admin {
 
         //Only allow users who can edit post to make the request.
         if ( current_user_can( 'edit_posts' ) ) {
-            $url = $this->paapi_helper->get_item_search_url( $_GET['keywords'], $_GET['marketplace'] , $_GET['store_id'] );
             try {
-                echo $this->remote_loader->load( $url );
+                $response = $this->paapi_helper->get_item_search_response( $_GET['keywords'], $_GET['marketplace'] , $_GET['store_id'] );
+                echo $this->remote_loader->verify( $response );
             } catch ( \Exception $e ) {
                 echo $this->paapi_helper->get_error_message( $e->getMessage() );
             }

@@ -606,35 +606,38 @@ var aalb_admin_object = (function( $ ) {
                 "marketplace"      : $( pop_up_container ).find( '.aalb-marketplace-names-list' ).val(),
                 "store_id"         : $( pop_up_container ).find( '.aalb-admin-popup-store-id' ).val()
             },
-            success: function( xml ) {
-                var items_xml = $( xml ).find( "Item" );
-                if( items_xml.length > 0 ) {
+            success: function( json ) {
+                var response = JSON.parse( json );
+                var items_json = response["SearchResult"]["Items"];
+                if( items_json.length > 0 ) {
                     var items = [];
-                    var i = 0;
-                    items_xml.each( function() {
+                    var count = 0;
+                    items_json.forEach( function( i ) {
                         //selecting maximum of max_search_result_items elements
-                        if( i < api_pref.max_search_result_items ) {
-                            var item = {};
-                            item.asin = $( this ).find( "ASIN" ).text();
-                            item.title = $( this ).find( "Title" ).text();
-                            item.image = $( this ).find( "LargeImage" ).first().find( "URL" ).text();
-                            item.price = $( this ).find( "LowestNewPrice" ).find( "FormattedPrice" ).text();
-                            items.push( item );
+                        if( count < api_pref.max_search_result_items ) {
+                            try {
+                                var item = {};
+                                item.asin = i["ASIN"];
+                                item.title = i["ItemInfo"]["Title"]["DisplayValue"];
+                                item.image = i["Images"]["Primary"]["Medium"]["URL"];
+                                item.price = i["Offers"]["Listings"][0]["Price"]["DisplayAmount"];
+                                items.push( item );
+                            } catch(err) { }
                         }
-                        i++;
+                        count++;
                     } );
 
                     var html = template( items );
                     $( pop_up_container ).find( ".aalb-admin-item-search-items" ).append( html );
-                    $( pop_up_container ).find( ".aalb-admin-popup-more-results" ).attr( 'href', $( xml ).find( "MoreSearchResultsUrl" ).text() );
+                    $( pop_up_container ).find( ".aalb-admin-popup-more-results" ).attr( 'href', response["SearchResult"]["SearchURL"] );
                     $( pop_up_container ).find( ".aalb-admin-item-search-loading" ).slideUp( "slow" );
                     $( pop_up_container ).find( ".aalb-admin-item-search" ).fadeIn( "slow" );
                 } else {
-                    var errors_xml = $( xml ).find( "Error" );
-                    if( errors_xml.length > 0 ) {
+                    var errors_json = response["Errors"];
+                    if( errors_json.length > 0 ) {
                         var htmlerror = "";
-                        errors_xml.each( function() {
-                            htmlerror += $( this ).find( "Message" ).text() + "<br>";
+                        errors_json.forEach( function( e ) {
+                            htmlerror += e["Message"] + "<br>";
                         } );
                         $( pop_up_container ).find( ".aalb-admin-item-search-loading" ).html( htmlerror );
                     } else {

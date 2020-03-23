@@ -45,7 +45,7 @@ class Xml_Manipulator {
      */
     public function get_customized_items_object( $products_xml, $marketplace ) {
         $simple_xml_object = $this->parse( $products_xml );
-        $custom_items = $this->add_custom_nodes( $simple_xml_object->Items, $marketplace );
+        $custom_items = $this->add_custom_nodes( $simple_xml_object->ItemsResult->Items, $marketplace );
 
         return $custom_items;
     }

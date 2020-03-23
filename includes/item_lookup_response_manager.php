@@ -48,7 +48,7 @@ class Item_Lookup_Response_Manager {
      */
     public function validate( $xml_response ) {
         if ( ! $this->should_render_xml( $xml_response ) ) {
-            throw new \Exception( $xml_response->Items->Request->Errors->Error->Code );
+            throw new \Exception( $xml_response->Errors[0]->Code );
         }
     }
 
@@ -62,7 +62,7 @@ class Item_Lookup_Response_Manager {
      * @return boolean should_render_xml
      */
     private function should_render_xml( $xml ) {
-        return ! isset( $xml->Items->Request->Errors->Error ) || $this->is_error_acceptable( $xml );
+        return ! isset( $xml->Errors ) || $this->is_error_acceptable( $xml );
     }
 
     /**
@@ -76,7 +76,7 @@ class Item_Lookup_Response_Manager {
      * @return boolean is_error_acceptable
      */
     private function is_error_acceptable( $xml ) {
-        return $xml->Items->Request->Errors->Error->Code == Paapi_Constants::INVALID_PARAMETER_VALUE_ERROR && isset( $xml->Items->Item );
+        return $xml->Errors->Code == Paapi_Constants::INVALID_PARAMETER_VALUE_ERROR && isset( $xml->ItemsResult->Items );
     }
 
     /**
@@ -89,15 +89,20 @@ class Item_Lookup_Response_Manager {
      * @return array array of asin => response items
      */
     public function get_response( $marketplace, $asins_array, $store_id ) {
-        $url = $this->paapi_helper->get_item_lookup_url( $asins_array, $marketplace, $store_id );
-        $response = $this->remote_loader->load( $url );
+        $response = $this->paapi_helper->get_item_lookup_response( $asins_array, $marketplace, $store_id );
+        $response = $this->remote_loader->verify( $response );
 
-        $xml_response = $this->xml_manipulator->parse( $response );
+        $assoc = json_decode( $response, true );
+        $xml = new \SimpleXMLElement( '<root/>' );
+        $this->array_to_xml( $assoc, $xml );
+        $string_xml = $xml->asXML();
+        
+        $xml_response = $this->xml_manipulator->parse( $string_xml );
         $this->validate( $xml_response );
-
-        $customized_response = $this->xml_manipulator->get_customized_items_object( $this->xml_manipulator->unescape_numeric_character_references( $response ), $marketplace );
+        
+        $customized_response = $this->xml_manipulator->get_customized_items_object( $this->xml_manipulator->unescape_numeric_character_references( $string_xml ), $marketplace );
         $items_array = $this->break_response_into_asin_response_map( $customized_response );
-
+        
         return $items_array;
     }
 
@@ -110,7 +115,7 @@ class Item_Lookup_Response_Manager {
      *
      * @return array Asin => response map
      */
-    private function break_response_into_asin_response_map( $response ){
+    private function break_response_into_asin_response_map( $response ) {
         $items_array = array();
         foreach ( $response->Item as $item ){
             $items_array[$item->ASIN->__toString()] = $item->asXML();
@@ -118,4 +123,25 @@ class Item_Lookup_Response_Manager {
 
         return $items_array;
     }
+        
+    /**
+     * Convert an array to XML
+     * @param array $array
+     * @param SimpleXMLElement $xml
+     */
+    private function array_to_xml( $array, &$xml ) {
+        foreach ( $array as $key => $value ) {
+            if ( is_array( $value ) ) {
+                if( is_int( $key ) ) {
+                    $key = "Item";
+                }
+                $label = $xml->addChild( $key );
+                $this->array_to_xml( $value, $label );
+            }
+            else {
+                $xml->addChild( $key, htmlspecialchars( $value ) );
+            }
+        }
+    }
+
 }
