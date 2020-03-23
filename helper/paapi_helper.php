@@ -87,6 +87,35 @@ class Paapi_Helper {
     }
 
     /**
+     * Get marketplace region for marketplace abbreviation
+     *
+     * @param string $marketplace_abbr Marketplace Abbreviation from shortcode
+     *
+     * @return string $marketplace_region Marketplace region
+     */
+    private function get_marketplace_region( $marketplace_abbr ) {
+		// https://webservices.amazon.com/paapi5/documentation/common-request-parameters.html#host-and-region
+		$regions = array(
+			"AU" => "us-west-2",
+			"BR" => "us-east-1",
+			"CA" => "us-east-1",
+			"DE" => "eu-west-1",
+			"ES" => "eu-west-1",
+			"FR" => "eu-west-1",
+			"IN" => "eu-west-1",
+			"IT" => "eu-west-1",
+			"JP" => "us-west-2",
+			"MX" => "us-east-1",
+			"TR" => "eu-west-1",
+			"UK" => "eu-west-1",
+			"US" => "us-east-1",
+		);
+        $marketplace_region = isset( $regions[$marketplace_abbr] ) ? $regions[$marketplace_abbr] : "eu-west-1";
+
+        return $marketplace_region;
+    }
+
+    /**
      * Returns default store_id for given marketplace.
      *
      * @param $marketplace
@@ -108,29 +137,26 @@ class Paapi_Helper {
     /**
      * Returns the item lookup response for the requested asins
      *
-     * @param string $asins_array     Array of asins.
-     * @param string $marketplace_url Marketplace to search the products.
-     * @param string $store_id        Associate tag.
+     * @param string $asins_array Array of asins.
+     * @param string $marketplace Marketplace to search the products.
+     * @param string $tracking_id Associate tag.
      *
      * @return string Response for item lookup.
      */
-    public function get_item_lookup_response( $asins_array, $marketplace_url, $store_id ) {
+    public function get_item_lookup_response( $asins_array, $marketplace, $tracking_id ) {
         $access_key_id = openssl_decrypt( base64_decode( get_option( Db_Constants::AWS_ACCESS_KEY ) ), Plugin_Constants::ENCRYPTION_ALGORITHM, Plugin_Constants::ENCRYPTION_KEY, 0, Plugin_Constants::ENCRYPTION_IV );
         $secret_key = openssl_decrypt( base64_decode( get_option( Db_Constants::AWS_SECRET_KEY ) ), Plugin_Constants::ENCRYPTION_ALGORITHM, Plugin_Constants::ENCRYPTION_KEY, 0, Plugin_Constants::ENCRYPTION_IV );
-        $marketplace = strtolower( end( explode( ".", $marketplace_url ) ) );
-        //usleep(1000000);
         $getItemRequest = new GetItemsRequest();
         $getItemRequest->PartnerType = "Associates";
-        $getItemRequest->PartnerTag = $store_id;
-        $getItemRequest->Marketplace = "www.amazon.$marketplace";
+        $getItemRequest->PartnerTag = $tracking_id;
         $getItemRequest->ItemIds = $asins_array;
         $getItemRequest->Resources = ["Images.Primary.Small","Images.Primary.Medium","Images.Primary.Large","ItemInfo.ProductInfo","ItemInfo.Title","Offers.Listings.Availability.Message","Offers.Listings.Availability.Type","Offers.Listings.Condition","Offers.Listings.DeliveryInfo.IsAmazonFulfilled","Offers.Listings.DeliveryInfo.IsFreeShippingEligible","Offers.Listings.DeliveryInfo.IsPrimeEligible","Offers.Listings.DeliveryInfo.ShippingCharges","Offers.Listings.MerchantInfo","Offers.Listings.Price","Offers.Listings.ProgramEligibility.IsPrimeExclusive","Offers.Listings.ProgramEligibility.IsPrimePantry","Offers.Listings.Promotions","Offers.Listings.SavingBasis","Offers.Summaries.HighestPrice","Offers.Summaries.LowestPrice","Offers.Summaries.OfferCount"];
         $getItemRequest->Merchant = "All";
-        $host = "webservices.amazon.$marketplace";
+        $host = $this->get_marketplace_endpoint( $marketplace );
         $path = "/paapi5/getitems";
         $payload = json_encode( $getItemRequest );
         $awsv4 = new AwsV4( $access_key_id, $secret_key );
-        $awsv4->setRegionName( "eu-west-1" );
+        $awsv4->setRegionName( $this->get_marketplace_region( $marketplace ) );
         $awsv4->setServiceName( "ProductAdvertisingAPI" );
         $awsv4->setPath( $path );
         $awsv4->setPayload( $payload );
@@ -150,30 +176,27 @@ class Paapi_Helper {
     /**
      * Returns the item search response for the requested keywords
      *
-     * @param string $keywords        Search keywords of the products.
-     * @param string $marketplace_url Marketplace to search the products.
-     * @param string $store_id        Associate tag.
+     * @param string $keywords    Search keywords of the products.
+     * @param string $marketplace Marketplace to search the products.
+     * @param string $tracking_id Associate tag.
      *
      * @return string Response for item search.
      */
-    public function get_item_search_response( $keywords, $marketplace_url, $store_id ) {
+    public function get_item_search_response( $keywords, $marketplace, $tracking_id ) {
         $access_key_id = openssl_decrypt( base64_decode( get_option( Db_Constants::AWS_ACCESS_KEY ) ), Plugin_Constants::ENCRYPTION_ALGORITHM, Plugin_Constants::ENCRYPTION_KEY, 0, Plugin_Constants::ENCRYPTION_IV );
         $secret_key = openssl_decrypt( base64_decode( get_option( Db_Constants::AWS_SECRET_KEY ) ), Plugin_Constants::ENCRYPTION_ALGORITHM, Plugin_Constants::ENCRYPTION_KEY, 0, Plugin_Constants::ENCRYPTION_IV );
-        $marketplace = strtolower( end( explode( ".", $marketplace_url ) ) );
-        //usleep(1000000);
         $searchItemRequest = new SearchItemsRequest();
         $searchItemRequest->PartnerType = "Associates";
-        $searchItemRequest->PartnerTag = $store_id;
-        $searchItemRequest->Marketplace = "www.amazon.$marketplace";
+        $searchItemRequest->PartnerTag = $tracking_id;
         $searchItemRequest->Keywords = $keywords;
         $searchItemRequest->SearchIndex = "All";
         $searchItemRequest->Resources = ["Images.Primary.Small","Images.Primary.Medium","Images.Primary.Large","ItemInfo.ProductInfo","ItemInfo.Title","Offers.Listings.Availability.Message","Offers.Listings.Availability.Type","Offers.Listings.Condition","Offers.Listings.DeliveryInfo.IsAmazonFulfilled","Offers.Listings.DeliveryInfo.IsFreeShippingEligible","Offers.Listings.DeliveryInfo.IsPrimeEligible","Offers.Listings.DeliveryInfo.ShippingCharges","Offers.Listings.MerchantInfo","Offers.Listings.Price","Offers.Listings.ProgramEligibility.IsPrimeExclusive","Offers.Listings.ProgramEligibility.IsPrimePantry","Offers.Listings.Promotions","Offers.Listings.SavingBasis","Offers.Summaries.HighestPrice","Offers.Summaries.LowestPrice","Offers.Summaries.OfferCount"];
         $searchItemRequest->Merchant = "All";
-        $host = "webservices.amazon.$marketplace";
+        $host = $this->get_marketplace_endpoint( $marketplace );
         $path = "/paapi5/searchitems";
         $payload = json_encode( $searchItemRequest );
         $awsv4 = new AwsV4( $access_key_id, $secret_key );
-        $awsv4->setRegionName( "eu-west-1" );
+        $awsv4->setRegionName( $this->get_marketplace_region( $marketplace ) );
         $awsv4->setServiceName( "ProductAdvertisingAPI" );
         $awsv4->setPath( $path );
         $awsv4->setPayload( $payload );
@@ -195,7 +218,6 @@ class Paapi_Helper {
 class SearchItemsRequest {
     public $PartnerType;
     public $PartnerTag;
-    public $Marketplace;
     public $Keywords;
     public $SearchIndex;
     public $Resources;
@@ -205,7 +227,6 @@ class SearchItemsRequest {
 class GetItemsRequest {
     public $PartnerType;
     public $PartnerTag;
-    public $Marketplace;
     public $ItemIds;
     public $Resources;
     public $Merchant;
