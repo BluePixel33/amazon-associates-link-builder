@@ -23,15 +23,15 @@ namespace AmazonAssociatesLinkBuilder\constants;
 
 class Library_Endpoints {
     //External Scripts
-    const HANDLEBARS_JS = 'https://d8fd03967nrad.cloudfront.net/libs/handlebars.js/4.0.5/handlebars.min.js';
-    const CODEMIRROR_JS = 'https://d8fd03967nrad.cloudfront.net/libs/codemirror/5.13.2/codemirror.min.js';
-    const CODEMIRROR_MODE_XML_JS = 'https://d8fd03967nrad.cloudfront.net/libs/codemirror/5.13.2/mode/xml/xml.min.js';
-    const CODEMIRROR_MODE_CSS_JS = 'https://d8fd03967nrad.cloudfront.net/libs/codemirror/5.13.2/mode/css/css.min.js';
+    const HANDLEBARS_JS = 'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js';
+    const CODEMIRROR_JS = 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.2/codemirror.min.js';
+    const CODEMIRROR_MODE_XML_JS = 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.2/mode/xml/xml.min.js';
+    const CODEMIRROR_MODE_CSS_JS = 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.2/mode/css/css.min.js';
 
     //External Styles
-    const CODEMIRROR_CSS = 'https://d8fd03967nrad.cloudfront.net/libs/codemirror/5.13.2/codemirror.min.css';
-    const FONT_AWESOME_CSS = 'https://d8fd03967nrad.cloudfront.net/libs/font-awesome/4.5.0/css/font-awesome.min.css';
-    const JQUERY_UI_CSS = 'https://d8fd03967nrad.cloudfront.net/libs/jQueryUI/1.12.1/themes/ui-lightness/jquery-ui.css';
+    const CODEMIRROR_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.2/codemirror.min.css';
+    const FONT_AWESOME_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css';
+    const JQUERY_UI_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.min.css';
 
     //Maxmind GeoLite2Country DB Download URL
     const GEOLITE_COUNTRY_DB_DOWNLOAD_URL = 'https://d8fd03967nrad.cloudfront.net/libs/geoip/database/GeoLite2-Country.mmdb.gz';
